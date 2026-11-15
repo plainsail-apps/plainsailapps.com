@@ -1,5 +1,5 @@
 # Builds the static site. Edit APPS / PUBLISHER here, run `python3 scripts/build.py`, commit.
-import pathlib, datetime
+import pathlib, datetime, re
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PUBLISHER = "Compora Pte. Ltd."
 EMAIL = "support@plainsailapps.com"
@@ -26,15 +26,16 @@ CSS = """body{font-family:-apple-system,system-ui,Segoe UI,Roboto,sans-serif;max
 h1{font-size:1.6rem;line-height:1.25}h2{font-size:1.1rem;margin-top:1.6rem}a{color:#0957EC}
 .muted{color:#5B6875;font-size:.9rem}nav{margin-bottom:1.5rem;font-size:.95rem}ul{padding-left:1.2rem}"""
 
+SHELL = (ROOT/"privacy.html").read_text()
+HEAD = SHELL[:SHELL.index('<main')]
+FOOT = SHELL[SHELL.index('</main>')+len('</main>'):]
+
 def page(title, body, back=True):
-    nav = '<nav><a href="/">Plainsail apps</a></nav>' if back else ''
-    return f"""<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title><style>{CSS}</style></head><body>{nav}
+    head = re.sub(r"<title>.*?</title>", f"<title>{title}</title>", HEAD, flags=re.S)
+    head = head.replace(' aria-current="page"', '').replace('href="style.css"', 'href="/style.css"').replace('href="favicon.svg"', 'href="/favicon.svg"')
+    return f"""{head}<main class="doc"><div class="wrap">
 {body}
-<p class="muted">© {datetime.date.today().year} {PUBLISHER}, Singapore.</p>
-</body></html>
-"""
+</div></main>{FOOT}"""
 
 def privacy(a):
     return page(f"{a['name']}: Privacy Policy", f"""<h1>{a['name']}: Privacy Policy</h1>
@@ -71,10 +72,9 @@ def index():
 <ul>{items}</ul>
 <p>Contact: <a href="mailto:{EMAIL}">{EMAIL}</a></p>""", back=False)
 
-(ROOT/"index.html").write_text(index())
 for a in APPS:
     d = ROOT/a["slug"]; d.mkdir(exist_ok=True)
     (d/"privacy.html").write_text(privacy(a)); (d/"support.html").write_text(support(a))
 (ROOT/"CNAME").write_text("plainsailapps.com\n")
-(ROOT/"404.html").write_text(page("Not found", '<h1>Page not found</h1><p><a href="/">Go to Plainsail apps</a></p>', back=False))
+(ROOT/"404.html").write_text(page("Page not found", '<h1>Page not found</h1><p><a href="/">Go to the apps</a></p>'))
 print("built", len(APPS), "apps")

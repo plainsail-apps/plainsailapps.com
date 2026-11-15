@@ -174,6 +174,29 @@ APPS = [
        what="timing and logging music practice",
        stored="your practice sessions, notes, ratings, instruments, goals and settings",
        extra="If you turn on the daily reminder, the app schedules a notification on your device; nothing is sent to us. If you export your practice log as a CSV file, it goes only where you choose to send or save it."),
+  dict(slug="financekids", who_title="For P1 to P5 children and their parents.", name="FinanceKids", subtitle="Five minutes a day of money habits, for primary school",
+       accent="#15803D", soft="#DDF3E4", icon=None, icon_svg="coin",
+       status="In testing", platforms="iPhone & iPad", ios_only=True, store_label="In testing for",
+       cta="FinanceKids is in testing now, on iPhone and iPad.", privacy_ready=False, own_faq_only=True,
+       support_data="FinanceKids is a simulation and never handles real money.",
+       short="A daily money-habits game for Singapore primary-school children, P1 to P5. Each day is a short lesson, a quiz and a challenge, hosted by Finn the Fox.",
+       chips=["Ages 7 to 11", "5 minutes a day", "Parent area with PIN"],
+       h1="Money habits, five minutes a day.",
+       lead="A short lesson, a quiz and a daily challenge, hosted by Finn the Fox. Keep the streak going and your pet grows. Made for Singapore primary-school children from P1 to P5.",
+       price_line="In testing on iPhone and iPad",
+       shots=[],
+       features=[("book", "30 lessons", "Bite-sized money lessons that build from P1 to P5."),
+                 ("check", "A quiz every day", "Check what stuck, with Finn the Fox cheering them on."),
+                 ("target", "360 daily challenges", "A fresh money challenge each day, so it never repeats too soon."),
+                 ("flame", "A pet that grows", "Keep the daily streak going and the pet grows with it."),
+                 ("lock", "Grown-ups area", "Progress for parents, behind a PIN."),
+                 ("users", "Talk about it at home", "A conversation prompt for every lesson, to chat through together.")],
+       who="Children in Singapore primary schools, from P1 to P5 (ages 7 to 11), and the parents who want them to grow up confident with money. It's simulation only and never handles real money.",
+       prices=[], price_note="Pricing will be announced at launch.",
+       faq=[("Does it use real money?", "No. FinanceKids is a simulation. It never handles real money and never connects to a bank."),
+            ("How long does it take each day?", "About five minutes: one short lesson, a quiz and the daily challenge.")],
+       disclaimer="FinanceKids is an educational game. It does not handle real money or give financial advice.",
+       what="", stored="", extra=""),
 ]
 
 LOGO = ('<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M15 3 L15 23 L5 23 Z" fill="#1F6F8B"/>'
@@ -244,7 +267,7 @@ def index():
         <div class="app-id">{icon(a)}<div><strong>{a['name']}</strong><span>{html.escape(a['subtitle'])}</span></div></div>
         <p>{html.escape(a['short'])}</p>
         <div class="chips">{chips}</div>
-        <div class="status">Coming soon to the App Store and Google Play</div>
+        <div class="status">{html.escape(a.get("status", "Coming soon to the App Store and Google Play"))}</div>
         <div class="more">Explore {a['name']} →</div>
       </div>
       <div class="card-art" aria-hidden="true">{phone(a, 0)}</div>
@@ -257,7 +280,7 @@ def index():
     <div class="hero-copy">
       <p class="eyebrow">Mobile apps for iPhone, iPad and Android</p>
       <h1>Simple apps that do one job brilliantly.</h1>
-      <p class="lead">Exam prep, rent receipts, job sheets, pocket money and music practice. Each app is built for one kind of person and one task, and works without an account, an advert or a signal.</p>
+      <p class="lead">Exam prep, rent receipts, job sheets, pocket money, music practice and money lessons for kids. Each app is built for one kind of person and one task, and works without an account, an advert or a signal.</p>
       <div class="btns"><a class="btn" href="#apps">See the apps</a><a class="btn ghost" href="#how">How we treat your data</a></div>
     </div>
     <div class="hero-shots" aria-hidden="true">
@@ -287,6 +310,12 @@ def index():
 </main>
 """ + foot()
 
+def stores(a):
+    st = a.get("store_label", "Coming soon to")
+    out = f'<span class="store"><small>{st} the</small>App Store</span>'
+    if not a.get("ios_only"): out += f'<span class="store"><small>{st}</small>Google Play</span>'
+    return out
+
 def app_page(a):
     s = a["slug"]
     shots = ""
@@ -314,8 +343,8 @@ def app_page(a):
     <div class="prices">{cells}</div>
     <p class="fine">{html.escape(a['price_note'])}</p>
   </div></section>"""
-    faqs = a["faq"] + COMMON_FAQ + [("How do I restore a purchase or cancel?",
-            f'Restore purchases is in the app\'s Settings. Subscriptions are cancelled in your App Store or Google Play account. <a href="/{s}/support">More help</a>')]
+    faqs = a["faq"] + ([] if a.get("own_faq_only") else COMMON_FAQ) + ([] if a.get("own_faq_only") else [("How do I restore a purchase or cancel?",
+            f'Restore purchases is in the app\'s Settings. Subscriptions are cancelled in your App Store or Google Play account. <a href="/{s}/support">More help</a>')])
     faq = "".join(f"<details><summary>{html.escape(q)}</summary><p>{ans if '<a' in ans else html.escape(ans)}</p></details>" for q, ans in faqs)
     disc = f'<p class="disclaimer">{html.escape(a["disclaimer"])}</p>' if a["disclaimer"] else ""
     hero_art = phone(a, 0, lazy=False)
@@ -323,12 +352,11 @@ def app_page(a):
 <main>
   <section class="app-hero"><div class="wrap">
     <div class="copy">
-      <div class="app-id">{icon(a, "bigicon", 84)}<div class="tagline">{a['name']}<br>For iPhone, iPad &amp; Android</div></div>
+      <div class="app-id">{icon(a, "bigicon", 84)}<div class="tagline">{a['name']}<br>For {html.escape(a.get('platforms', 'iPhone, iPad & Android'))}</div></div>
       <h1>{html.escape(a['h1'])}</h1>
       <p class="lead">{html.escape(a['lead'])}</p>
       <div class="btns">
-        <span class="store"><small>Coming soon to the</small>App Store</span>
-        <span class="store"><small>Coming soon to</small>Google Play</span>
+        {stores(a)}
       </div>
       <p class="note">{html.escape(a['price_line'])}</p>
     </div>
@@ -353,11 +381,11 @@ def app_page(a):
   </div></section>
 
   <section class="cta"><div class="wrap">
-    <h2>{html.escape(a['name'])} is coming soon to the App Store and Google Play.</h2>
+    <h2>{html.escape(a.get('cta', a['name'] + ' is coming soon to the App Store and Google Play.'))}</h2>
     <a class="btn ghost" href="mailto:{EMAIL}?subject={a['name'].replace(' ', '%20')}">Ask us a question</a>
   </div></section>
 </main>
-""" + foot(f'<a href="/">All apps</a><a href="/{s}/support">{a["name"]} support</a><a href="/{s}/privacy">{a["name"]} privacy</a>')
+""" + foot(f'<a href="/">All apps</a><a href="/{s}/support">{a["name"]} support</a>' + (f'<a href="/{s}/privacy">{a["name"]} privacy</a>' if a.get("privacy_ready", True) else ""))
 
 def doc(title, desc, body, a=None):
     style = style_vars(a) if a else ""
@@ -389,7 +417,7 @@ def support(a):
 <li><b>Cancel or change a subscription:</b> on iPhone or iPad, go to Settings, tap your name, then Subscriptions. On Android, open Google Play, tap your profile, then Payments &amp; subscriptions.</li>
 <li><b>Refunds</b> are handled by Apple or Google under their own policies.</li></ul>
 <h2>Your data</h2>
-<p>Your data stays on your device. We can't see it, so we can't recover it if the app is deleted. Read the <a href="/{a['slug']}/privacy">privacy policy</a>.</p>
+<p>{a.get("support_data", "Your data stays on your device. We can't see it, so we can't recover it if the app is deleted.")} Read the <a href="{'/' + a['slug'] + '/privacy' if a.get('privacy_ready', True) else '/privacy.html'}">privacy policy</a>.</p>
 {f'<p class="muted">{a["disclaimer"]}</p>' if a['disclaimer'] else ""}""", a)
 
 def rewrap(name, title, desc):
@@ -402,7 +430,8 @@ def rewrap(name, title, desc):
 for a in APPS:
     d = ROOT/a["slug"]; d.mkdir(exist_ok=True)
     (d/"index.html").write_text(app_page(a))
-    (d/"privacy.html").write_text(privacy(a)); (d/"support.html").write_text(support(a))
+    if a.get("privacy_ready", True): (d/"privacy.html").write_text(privacy(a))
+    (d/"support.html").write_text(support(a))
 rewrap("privacy.html", "Privacy Policy: Plainsail Apps", "How Plainsail Apps handle your information: no accounts, no ads, no tracking.")
 rewrap("support.html", "Support: Plainsail Apps", "Help with Plainsail Apps: purchases, subscriptions, refunds and moving to a new phone.")
 (ROOT/"CNAME").write_text("plainsailapps.com\n")

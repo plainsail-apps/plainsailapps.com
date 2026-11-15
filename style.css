@@ -165,3 +165,4 @@ main.doc p, main.doc li { color: var(--body); }
   nav.site { gap: 4px 18px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.preview-note{margin:8px 0 20px;color:#5B6472;font-size:.9rem}

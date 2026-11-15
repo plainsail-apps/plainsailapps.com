@@ -63,7 +63,10 @@ APPS = [
        h1="Money habits, five minutes a day.",
        lead="A short lesson, a quiz and a daily challenge, hosted by Finn the Fox. Keep the streak going and your pet grows. Made for Singapore primary-school children from P1 to P5.",
        price_line="In testing on iPhone and iPad",
-       shots=[],
+       shots=[("screen-1.webp", "Today's lesson, quiz and challenge", 'Keep the streak going and the pet grows.'),
+              ("screen-2.webp", 'Short lessons with Finn the Fox', 'One idea at a time, in plain words.'),
+              ("screen-3.webp", 'A quiz that checks what stuck', 'Real Singapore prices, instant feedback.'),
+              ("screen-4.webp", 'Progress for grown-ups', 'Behind a PIN, with a prompt to talk at home.')], preview=True,
        features=[("book", "30 lessons", "Bite-sized money lessons that build from P1 to P5."),
                  ("check", "A quiz every day", "Check what stuck, with Finn the Fox cheering them on."),
                  ("target", "360 daily challenges", "A fresh money challenge each day, so it never repeats too soon."),
@@ -83,7 +86,10 @@ APPS = [
        h1="Walk into the AIGP exam ready.",
        lead="Original, scenario-based practice questions for the IAPP AI Governance Professional exam, with clear explanations that teach the reasoning, not just the answer.",
        price_line="30 free questions · then $9.99 a month",
-       shots=[],
+       shots=[("screen-1.webp", 'Progress by domain', 'See where to spend your study time.'),
+              ("screen-2.webp", 'Scenario-based questions', 'Practise one domain at a time.'),
+              ("screen-3.webp", 'Every answer explained', "Why the right answer is right, and why yours wasn't."),
+              ("screen-4.webp", 'Full mock exams', 'Scores by domain, then review what you missed.')], preview=True,
        features=[("book", "500 original questions", "Written from scratch and mapped to the AIGP Body of Knowledge."),
                  ("target", "Practise by domain", "Focus on the areas you find hardest, one domain at a time."),
                  ("clock", "Full mock exams", "Five 100-question timed exams with no repeated questions."),
@@ -106,7 +112,10 @@ APPS = [
        h1="Chores done. Pocket money earned.",
        lead="A chore chart and a piggy bank in one. Set the daily jobs and the rules once, and every tick goes towards your child's pocket money.",
        price_line="Coming soon to the App Store and Google Play",
-       shots=[],
+       shots=[("screen-1.webp", "Today's chores, one tap each", 'Each child has their own list.'),
+              ("screen-2.webp", 'A jar for each child', "What they've earned and what they're saving for."),
+              ("screen-3.webp", 'Pocket money rules', 'Set the weekly amount, the threshold and a bonus.'),
+              ("screen-4.webp", 'Grown-ups behind a PIN', 'Money and rules stay with the parents.')], preview=True,
        features=[("check", "Chores first", "The app opens on today's chores, so ticking one off takes a second."),
                  ("coin", "Pocket money that follows your rules", "Pay a weekly amount when chores are done, with bonuses for a perfect week."),
                  ("jar", "A jar for each child", "Every child sees what they've earned and what they're saving for."),
@@ -155,7 +164,10 @@ APPS = [
        h1="Practise more. Know you did.",
        lead="A one-tap practice timer and log. Every session is saved with notes and a rating, so you can see your streak and how much you really played this week.",
        price_line="Coming soon to the App Store and Google Play",
-       shots=[],
+       shots=[("screen-1.webp", 'One-tap practice timer', 'Pick the instrument, tap to start.'),
+              ("screen-2.webp", 'Notes and a rating', 'Remember what you worked on.'),
+              ("screen-3.webp", 'Weekly totals', 'Minutes per day against your goal.'),
+              ("screen-4.webp", 'A calendar of the days you played', 'Streaks at a glance.')], preview=True,
        features=[("clock", "One-tap timer", "Tap to start, tap to stop. The session is logged for you."),
                  ("flame", "Streaks", "See how many days in a row you've played."),
                  ("chart", "Weekly totals", "Minutes practised this week against your goal."),
@@ -326,6 +338,7 @@ def app_page(a):
   <section class="section" id="screens"><div class="wrap">
     <p class="eyebrow">See it in action</p>
     <h2>{len(a['shots'])} screens, one job.</h2>
+    {'<p class="preview-note">Design preview. The finished app may look a little different.</p>' if a.get('preview') else ''}
     <div class="shots">{figs}</div>
   </div></section>"""
     feats = "".join(f'<div class="feature">{svg(i)}<h3>{html.escape(t)}</h3><p>{html.escape(d)}</p></div>' for i, t, d in a["features"])

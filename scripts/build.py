@@ -1,7 +1,16 @@
 # Builds the whole static site. Edit APPS / PUBLISHER here, run `python3 scripts/build.py`, commit.
 # Generates: index.html, /<slug>/index.html (app page), /<slug>/privacy.html, /<slug>/support.html, 404.html,
 # and re-wraps the hand-written <main> of privacy.html and support.html in the shared header and footer.
-import pathlib, re, html
+import pathlib, re, html, hashlib
+
+# Cache-busting: every /assets/... image gets ?v=<content hash>, so a replaced screenshot shows at once.
+def _bust(text):
+    def rep(m):
+        f = ROOT / m.group(1).lstrip("/")
+        return f'src="{m.group(1)}?v={hashlib.sha1(f.read_bytes()).hexdigest()[:8]}"' if f.exists() else m.group(0)
+    return re.sub(r'src="(/assets/[^"?]+)"', rep, text)
+_write = pathlib.Path.write_text
+pathlib.Path.write_text = lambda self, data, *a, **k: _write(self, _bust(data) if self.suffix == ".html" else data, *a, **k)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PUBLISHER = "Compora Pte. Ltd."
@@ -64,9 +73,9 @@ APPS = [
        lead="A short lesson, a quiz and a daily challenge, hosted by Finn the Fox. Keep the streak going and your pet grows. Made for Singapore primary-school children from P1 to P5.",
        price_line="In testing on iPhone and iPad",
        shots=[("screen-1.webp", 'Say hi to Finn', 'Finn greets your child and shows their level.'),
-              ("screen-2.webp", 'Three small things a day', 'A lesson, a challenge and a pat for Finn.'),
-              ("screen-3.webp", "Finn's Den", 'Coins earned in lessons keep Finn fed and happy.'),
-              ("screen-4.webp", 'Progress for parents', 'Streak, lessons passed and stars, at a glance.')],
+              ("screen-2.webp", 'Short lessons with Finn', 'Singapore coins and notes, one idea at a time.'),
+              ("screen-3.webp", 'A quiz after every lesson', 'Instant feedback, with coins and XP to earn.'),
+              ("screen-4.webp", 'A dashboard for parents', 'Lessons passed, streak, average score and class level.')],
        features=[("book", "30 lessons", "Bite-sized money lessons that build from P1 to P5."),
                  ("check", "A quiz every day", "Check what stuck, with Finn the Fox cheering them on."),
                  ("target", "360 daily challenges", "A fresh money challenge each day, so it never repeats too soon."),
@@ -80,16 +89,16 @@ APPS = [
        disclaimer="FinanceKids is an educational game. It does not handle real money or give financial advice.",
        what="", stored="", extra=""),
   dict(slug="aigovernanceprep", who_title="For anyone sitting the AIGP exam.", name="AI Governance Prep", subtitle="AIGP exam practice questions",
-       accent="#3730A3", soft="#E6E7F7", icon=None, icon_svg="shield",
+       accent="#0957EC", soft="#E3ECFD", icon=None, icon_svg="shield",
        short="500 original, scenario-based questions mapped to the current AIGP Body of Knowledge, with an explanation for every right and wrong answer. Practise by domain or sit full mock exams.",
        chips=["iPhone, iPad & Android", "30 free questions", "Five mock exams"],
        h1="Walk into the AIGP exam ready.",
        lead="Original, scenario-based practice questions for the IAPP AI Governance Professional exam, with clear explanations that teach the reasoning, not just the answer.",
        price_line="30 free questions · then $9.99 a month",
-       shots=[("screen-1.webp", 'Progress by domain', 'See where to spend your study time.'),
-              ("screen-2.webp", 'Scenario-based questions', 'Practise one domain at a time.'),
+       shots=[("screen-1.webp", 'Everything from one home screen', 'Practice, mock exams, review and progress.'),
+              ("screen-2.webp", 'Scenario-based questions', 'Practise all four domains or one at a time.'),
               ("screen-3.webp", 'Every answer explained', "Why the right answer is right, and why yours wasn't."),
-              ("screen-4.webp", 'Full mock exams', 'Scores by domain, then review what you missed.')], preview=True,
+              ("screen-4.webp", 'Simple plans', '$9.99 a month or $24.99 for three months.')],
        features=[("book", "500 original questions", "Written from scratch and mapped to the AIGP Body of Knowledge."),
                  ("target", "Practise by domain", "Focus on the areas you find hardest, one domain at a time."),
                  ("clock", "Full mock exams", "Five 100-question timed exams with no repeated questions."),
@@ -158,16 +167,16 @@ APPS = [
        stored="the properties, tenants, payments, receipts and signature you enter",
        extra="If you turn on reminders, the app schedules notifications on your device; nothing is sent to us. If you export a backup file, it is created on your device and goes only where you choose to send or save it."),
   dict(slug="fermata", who_title="For anyone learning an instrument.", name="Fermata: Practice Log", subtitle="Practice timer & log for musicians",
-       accent="#0F766E", soft="#D9F0EC", icon=None, icon_svg="note",
+       accent="#8A5A00", soft="#FBF0D9", icon=None, icon_svg="note",
        short="Tap to start timing your practice, tap to stop. See your streak, your weekly totals and a calendar of the days you played.",
        chips=["One-tap timer", "Streaks", "Weekly totals"],
        h1="Practise more. Know you did.",
        lead="A one-tap practice timer and log. Every session is saved with notes and a rating, so you can see your streak and how much you really played this week.",
        price_line="Coming soon to the App Store and Google Play",
-       shots=[("screen-1.webp", 'One-tap practice timer', 'Pick the instrument, tap to start.'),
-              ("screen-2.webp", 'Notes and a rating', 'Remember what you worked on.'),
-              ("screen-3.webp", 'Weekly totals', 'Minutes per day against your goal.'),
-              ("screen-4.webp", 'A calendar of the days you played', 'Streaks at a glance.')], preview=True,
+       shots=[("screen-1.webp", 'Today at a glance', 'Minutes against your goal, and your streak.'),
+              ("screen-2.webp", 'One-tap timer', 'Tap to start, tap to stop.'),
+              ("screen-3.webp", 'Log a session', 'Length, instrument, a rating and a note.'),
+              ("screen-4.webp", 'See your progress', 'This week, your streaks and the last five weeks.')],
        features=[("clock", "One-tap timer", "Tap to start, tap to stop. The session is logged for you."),
                  ("flame", "Streaks", "See how many days in a row you've played."),
                  ("chart", "Weekly totals", "Minutes practised this week against your goal."),

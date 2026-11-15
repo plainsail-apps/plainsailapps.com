@@ -54,7 +54,7 @@ COMMON_FAQ = [
 
 APPS = [
   dict(slug="financekids", who_title="For P1 to P5 children and their parents.", name="FinanceKids", subtitle="Five minutes a day of money habits, for primary school",
-       accent="#15803D", soft="#DDF3E4", icon=None, icon_svg="coin",
+       accent="#5B52C7", soft="#ECEBFA", icon=None, icon_svg="coin",
        status="In testing", platforms="iPhone & iPad", ios_only=True, store_label="In testing for",
        cta="FinanceKids is in testing now, on iPhone and iPad.", privacy_ready=False, own_faq_only=True,
        support_data="FinanceKids is a simulation and never handles real money.",
@@ -63,10 +63,10 @@ APPS = [
        h1="Money habits, five minutes a day.",
        lead="A short lesson, a quiz and a daily challenge, hosted by Finn the Fox. Keep the streak going and your pet grows. Made for Singapore primary-school children from P1 to P5.",
        price_line="In testing on iPhone and iPad",
-       shots=[("screen-1.webp", "Today's lesson, quiz and challenge", 'Keep the streak going and the pet grows.'),
-              ("screen-2.webp", 'Short lessons with Finn the Fox', 'One idea at a time, in plain words.'),
-              ("screen-3.webp", 'A quiz that checks what stuck', 'Real Singapore prices, instant feedback.'),
-              ("screen-4.webp", 'Progress for grown-ups', 'Behind a PIN, with a prompt to talk at home.')], preview=True,
+       shots=[("screen-1.webp", 'Say hi to Finn', 'Finn greets your child and shows their level.'),
+              ("screen-2.webp", 'Three small things a day', 'A lesson, a challenge and a pat for Finn.'),
+              ("screen-3.webp", "Finn's Den", 'Coins earned in lessons keep Finn fed and happy.'),
+              ("screen-4.webp", 'Progress for parents', 'Streak, lessons passed and stars, at a glance.')],
        features=[("book", "30 lessons", "Bite-sized money lessons that build from P1 to P5."),
                  ("check", "A quiz every day", "Check what stuck, with Finn the Fox cheering them on."),
                  ("target", "360 daily challenges", "A fresh money challenge each day, so it never repeats too soon."),

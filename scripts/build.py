@@ -20,6 +20,11 @@ APPS = [
        stored="your business details, customers, job sheets, photos and signatures",
        extra="Photos are taken or chosen only when you ask, and stay in the app on your device. If you export a backup file or share a PDF, it goes only where you choose to send or save it.",
        disclaimer=""),
+  dict(slug="fermata", name="Fermata: Practice Log",
+       what="timing and logging music practice",
+       stored="your practice sessions, notes, ratings, instruments, goals and settings",
+       extra="If you turn on the daily reminder, the app schedules a notification on your device; nothing is sent to us. If you export your practice log as a CSV file, it goes only where you choose to send or save it.",
+       disclaimer=""),
 ]
 
 CSS = """body{font-family:-apple-system,system-ui,Segoe UI,Roboto,sans-serif;max-width:680px;margin:0 auto;padding:2rem 1.2rem;line-height:1.6;color:#14202B}

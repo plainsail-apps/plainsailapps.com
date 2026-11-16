@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FinanceKids: Privacy Policy</title>
+<meta name="description" content="Privacy policy for FinanceKids.">
+<meta property="og:title" content="FinanceKids: Privacy Policy">
+<meta property="og:description" content="Privacy policy for FinanceKids.">
+<meta name="theme-color" content="#0B1B2B">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body style="--accent:#5B52C7;--accent-soft:#ECEBFA;--accent-ink:#ffffff">
+<header class="site"><div class="wrap">
+  <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M15 3 L15 23 L5 23 Z" fill="#1F6F8B"/><path d="M17 7 L17 23 L26 23 Z" fill="#7FB3C4"/><path d="M4 26 H28 L25 29 H7 Z" fill="#0B1B2B"/></svg>Plainsail Apps</a>
+  <nav class="site" aria-label="Main"><a href="/#apps">Apps</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a class="pill" href="mailto:support@plainsailapps.com">Contact us</a></nav>
+</div></header>
+<main class="doc"><div class="wrap">
+<p class="crumb"><a href="/financekids/">← FinanceKids</a></p><h1>FinanceKids: Privacy Policy</h1>
+  <p class="meta">Effective 16 November 2026 · Publisher: Compora Pte. Ltd., Singapore</p>
+
+  <div class="box">
+    <p><strong>The short version:</strong> FinanceKids has no accounts and never asks for a name, email address, date of birth, school, photo or location. Your child's progress, coins, badges and pet stay on the device. To find out whether children come back, and so a streak can be brought back on a new device, the app sends us four kinds of usage event and a copy of the streak, labelled only with a random code the app makes up on the device. A parent can switch the usage events off and erase everything from inside the app.</p>
+  </div>
+
+  <p>This policy covers the FinanceKids app for iPhone and iPad, published by Compora Pte. Ltd. ("we", "us") under the Plainsail Apps name. FinanceKids is different from our other apps in one respect: it talks to a server we run. This page says exactly what goes there.</p>
+
+  <h2>What stays on the device</h2>
+  <p>Everything your child earns is stored on the device only: lessons passed, quiz progress, XP, coins, badges, store items, the streak, the state of Finn the pet, and the primary class your child picked (P1 to P5, or left unanswered), which sets how hard the questions start. The device also keeps the parent PIN (as a salted hash, never the digits), your choices for the usage switch and the daily reminder, and a short queue of usage events waiting to be sent.</p>
+  <p>We cannot read any of this remotely. Deleting the app deletes all of it.</p>
+
+  <h2>What is sent to us</h2>
+  <p><strong>Four usage events.</strong> One record each time:</p>
+  <ul>
+    <li><strong>app opened</strong>;</li>
+    <li><strong>daily check-in claimed</strong>;</li>
+    <li><strong>lesson completed</strong>, with which lesson;</li>
+    <li><strong>quiz scored</strong>, with which lesson and the score as a percentage.</li>
+  </ul>
+  <p>Each record holds the event, the device code, the Singapore calendar date it counted against, the time the device says it happened, the time we received it, and a second random code used only so that an event sent twice is not counted twice. Nothing else.</p>
+  <p><strong>A copy of the streak.</strong> One record per device: the device code, the number of days in the streak, the date of the most recent play, and when the record was last updated. It lets a streak survive the game data on the device being lost, and it lets you move the streak to another device.</p>
+  <p><strong>The device code.</strong> A random code of 24 characters, made up by the app on the device. It is not derived from anything about your child, the device or Apple's identifiers, and we have no other information to connect it to a person. It is shown to you behind the parent PIN in <strong>Parent Dashboard → Your data</strong>.</p>
+  <p>There is no free-text field anywhere in what we receive.</p>
+
+  <h2>What we do not collect</h2>
+  <p>No names, email addresses, phone numbers, dates of birth, school names, photos, location, contacts, advertising identifiers or device fingerprints. No third-party analytics, advertising, crash-reporting or tracking tools. We do not track your child, or you, across other companies' apps or websites.</p>
+  <p>The class your child picks implies an age, so we say it plainly: it stays on the device and is never sent to us.</p>
+  <p>Your device's IP address reaches our server, as it does with any website, and is used only to limit how fast anonymous requests can arrive. It is not stored with the events or the streak, and our request logs record only the method and path of each request.</p>
+
+  <h2>Why we use it</h2>
+  <p>The usage events tell us whether children come back and which lessons work, counted in aggregate, so we can decide what to build and what to remove. The streak copy exists so a child does not lose a streak they earned. We do not use any of it to profile your child, to target anything at them, or to make any decision about them. We do not sell it or share it with advertisers or data brokers.</p>
+
+  <h2>Moving a streak to another device</h2>
+  <p>Copy the code from <strong>Parent Dashboard → Your data</strong> on the old device and enter it under <strong>I have a code from another device</strong> on the new one. The app shows you the streak it found and asks you to confirm before using it. Only the streak comes back: lessons, coins, badges and the pet were never sent to us. The new device's own code is retired, and its records on our server are deleted at the same moment.</p>
+  <p>The server has no passwords, because adding them would mean collecting the personal data this app avoids. So anyone who knows a device's code could read or change that device's streak. Treat the code like a spare key and do not post it anywhere public. The usage events cannot be read back by anyone outside our team.</p>
+
+  <h2>Where the data is held</h2>
+  <ul>
+    <li><strong>Compora Pte. Ltd.</strong> publishes and operates the app, in Singapore.</li>
+    <li><strong>Neon</strong> hosts the database holding the events and streak copies, in Singapore (AWS ap-southeast-1).</li>
+    <li><strong>Replit</strong> runs the server the app talks to, in North America. Requests from the app pass through it to the database in Singapore.</li>
+  </ul>
+  <p>Both act only on our behalf. Nothing in transit identifies your child, but we would rather you knew the data crosses a border than find out later.</p>
+
+  <h2>How long we keep it</h2>
+  <p>Usage events are deleted after 24 months. The streak copy is kept for as long as the device keeps using the app, or until you erase it.</p>
+
+  <h2>Your choices</h2>
+  <ul>
+    <li><strong>Switch the usage events off</strong> in <strong>Parent Dashboard → Your data → Anonymous usage data</strong>. It takes effect immediately, and anything waiting to be sent is discarded. Nothing in the app is withheld when it is off. It does not stop the streak copy, because that is what lets the code bring a lost streak back.</li>
+    <li><strong>Erase everything</strong> in <strong>Parent Dashboard → Your data → Erase everything on this device</strong>. This asks our server to delete the streak copy and every event recorded under the device's code, then erases everything on the device. It cannot be undone. If the device is offline at that moment, the device is still erased but the server records are not, and they can no longer be found without the code. Deleting the app has the same limit, so if you want the server records gone, use the button first, or email us the code before you delete the app.</li>
+    <li><strong>Daily reminder</strong> in <strong>Parent Dashboard → Daily reminder</strong>. It is off until you turn it on, and only then does the device ask permission to show notifications. The reminder is scheduled by the device itself; nothing about it is sent to us.</li>
+    <li><strong>Ask us</strong>. Email the device code to <a href="mailto:support@plainsailapps.com?subject=FinanceKids%20data">support@plainsailapps.com</a> and we will tell you exactly what is stored under it, or delete it. Without the code we cannot find anything, because nothing we hold says which records are yours.</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>FinanceKids is made for children in Singapore primary schools, P1 to P5 (ages 7 to 11), to be used with a parent. The parent area sits behind a PIN. We do not knowingly collect personal data from anyone, of any age, and because we collect none we do not ask for parental consent. If that ever changes, we will publish a new, dated version of this policy and add a consent step before anything personal is collected.</p>
+
+  <h2>The law</h2>
+  <p>We do not believe what we hold is personal data under Singapore's Personal Data Protection Act 2012, because there is nothing we hold that could identify anyone. We follow the Act's spirit anyway: you can ask what we hold, have it deleted, and we aim to reply within 30 days.</p>
+
+  <h2>Testing with TestFlight</h2>
+  <p>While FinanceKids is in testing, it is installed through Apple's TestFlight app. Apple collects crash logs and usage information from TestFlight and shares them with us under <a href="https://www.apple.com/legal/privacy/data/en/test-flight/">Apple's TestFlight privacy terms</a>, along with the name and email address we used to invite you, and any feedback you choose to send. We use these only to run the test and fix problems in the app.</p>
+
+  <h2>Security</h2>
+  <p>Everything sent between the app and our server is encrypted (HTTPS). The database is access-controlled. The parent PIN is stored on the device as a salted hash rather than the digits, though a four-digit PIN can always be worked out by trying every combination, so please do not use a PIN that matters elsewhere.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If what the app collects changes, we will update this page and its date before that version is released, and say what changed. A change that introduces personal data will never be made quietly.</p>
+
+  <h2>Contact</h2>
+  <p>Compora Pte. Ltd., 68 Circular Road, #02-01, Singapore 049422<br>Email: <a href="mailto:support@plainsailapps.com">support@plainsailapps.com</a></p>
+  <p class="muted">FinanceKids is an educational game. It does not handle real money or give financial advice.</p>
+</div></main>
+<footer class="site"><div class="wrap">
+  <nav aria-label="Footer"><a href="/support.html">Support</a><a href="/privacy.html">Privacy Policy</a><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a><a href="mailto:support@plainsailapps.com">support@plainsailapps.com</a></nav>
+  <div>&copy; 2026 Compora Pte. Ltd., Singapore</div>
+</div></footer>
+</body>
+</html>

@@ -65,7 +65,7 @@ APPS = [
   dict(slug="financekids", who_title="For P1 to P5 children and their parents.", name="FinanceKids", subtitle="Five minutes a day of money habits, for primary school",
        accent="#5B52C7", soft="#ECEBFA", icon=None, icon_svg="coin",
        status="In testing", platforms="iPhone & iPad", ios_only=True, store_label="In testing for",
-       cta="FinanceKids is in testing now, on iPhone and iPad.", privacy_ready=False, own_faq_only=True,
+       cta="FinanceKids is in testing now, on iPhone and iPad.", privacy_custom=True, own_faq_only=True,
        support_data="FinanceKids is a simulation and never handles real money.",
        short="A daily money-habits game for Singapore primary-school children, P1 to P5. Each day is a short lesson, a quiz and a challenge, hosted by Finn the Fox.",
        chips=["Ages 7 to 11", "5 minutes a day", "Parent area with PIN"],
@@ -325,7 +325,7 @@ def index():
   <section class="section dark" id="how"><div class="wrap">
     <h2>Built the plain way, on purpose.</h2>
     <div class="cols">
-      <div><h3>Private by design</h3><p>There's no server behind the apps, so there's nothing for us to collect. What you type stays on your phone or tablet. <a href="/privacy.html" style="color:#fff">Read the privacy policy</a>.</p></div>
+      <div><h3>Private by design</h3><p>No accounts, no ads, no tracking. What you type stays on your phone or tablet. The one exception is FinanceKids, which sends anonymous usage counts and a streak backup, and says exactly what in its own policy. <a href="/privacy.html" style="color:#fff">Read the privacy policy</a>.</p></div>
       <div><h3>Fair, clear pricing</h3><p>Try each app free first. Pay through the App Store or Google Play, and cancel there whenever you like.</p></div>
       <div><h3>Every screen size</h3><p>One app for iPhone, iPad, Android phones and Android tablets, so you can use whichever device is to hand.</p></div>
     </div>
@@ -450,11 +450,18 @@ def rewrap(name, title, desc):
     m = re.search(r'<main class="doc">\s*<div class="wrap">(.*?)</div>\s*</main>', src, re.S)
     p.write_text(doc(title, desc, m.group(1).strip()))
 
+def rewrap_app_privacy(a):
+    p = ROOT / a["slug"] / "privacy.html"
+    m = re.search(r'<main class="doc">\s*<div class="wrap">(.*?)</div>\s*</main>', p.read_text(), re.S)
+    body = re.sub(r'^<p class="crumb">.*?</p>', "", m.group(1).strip(), flags=re.S)
+    p.write_text(doc(f"{a['name']}: Privacy Policy", f"Privacy policy for {a['name']}.", body, a))
+
 (ROOT/"index.html").write_text(index())
 for a in APPS:
     d = ROOT/a["slug"]; d.mkdir(exist_ok=True)
     (d/"index.html").write_text(app_page(a))
-    if a.get("privacy_ready", True): (d/"privacy.html").write_text(privacy(a))
+    if a.get("privacy_custom"): rewrap_app_privacy(a)  # hand-written <main>: this app has a server
+    elif a.get("privacy_ready", True): (d/"privacy.html").write_text(privacy(a))
     (d/"support.html").write_text(support(a))
 rewrap("privacy.html", "Privacy Policy: Plainsail Apps", "How Plainsail Apps handle your information: no accounts, no ads, no tracking.")
 rewrap("support.html", "Support: Plainsail Apps", "Help with Plainsail Apps: purchases, subscriptions, refunds and moving to a new phone.")

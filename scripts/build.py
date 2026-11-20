@@ -114,30 +114,38 @@ APPS = [
        disclaimer="AI Governance Prep is an independent study aid and is not affiliated with, endorsed by or sponsored by the IAPP or ISACA. AIGP is a trademark of the IAPP; AAISM and AAIA are trademarks of ISACA.",
        what="practice questions and mock exams for AI governance certifications",
        stored="your answers, scores, flagged questions and mock exam results", extra=""),
-  dict(slug="chorejar", who_title="For parents who want help around the house.", name="Chore Jar", subtitle="Kids' chores & pocket money",
+  dict(slug="chorejar", who_title="For parents who want help around the house.", name="ChoreJar", subtitle="Chores & pocket money for families",
        accent="#C1305F", soft="#FBE3EA", icon=None, icon_svg="jar",
-       short="A chore chart that pays out. Kids tick off their jobs, pocket money follows the rules you set, and balances stay behind a parent PIN.",
-       chips=["Chore chart", "Pocket money rules", "Parent PIN"],
+       privacy_custom=True, own_faq_only=True,
+       short="A chore chart and a pocket-money jar in one. Grown-ups tick the jobs, the week pays out by the rules you set, and every phone in the family stays in step.",
+       chips=["Free, no ads", "The whole family in step", "Kids look, grown-ups tick"],
        h1="Chores done. Pocket money earned.",
-       lead="A chore chart and a piggy bank in one. Set the daily jobs and the rules once, and every tick goes towards your child's pocket money.",
-       price_line="Coming soon to the App Store and Google Play",
-       shots=[("screen-1.webp", 'A week of chores per child', "What they've earned, and how many ticks to go."),
-              ("screen-2.webp", 'Tick off each day', 'Every-day chores and paid extras, Monday to Sunday.'),
-              ("screen-3.webp", 'Grown-ups behind a PIN', 'Children can tick; only parents handle the money.'),
-              ("screen-4.webp", 'A passbook for every child', 'Money in, money out, and a savings goal.')],
-       features=[("check", "Chores first", "The app opens on today's chores, so ticking one off takes a second."),
-                 ("coin", "Pocket money that follows your rules", "Pay a weekly amount when chores are done, with bonuses for a perfect week."),
-                 ("jar", "A jar for each child", "Every child sees what they've earned and what they're saving for."),
-                 ("lock", "Balances behind a PIN", "Grown-ups manage money behind a parent PIN."),
-                 ("users", "The whole household can tick", "Parents, grandparents or a helper can mark chores done on the same device."),
-                 ("phone", "Private and offline", "No account, no ads, and nothing leaves your device.")],
-       who="Parents who want their children to help around the house and learn that money is earned, without a bank card, an online account or adverts aimed at kids.",
-       prices=[], price_note="Pricing will be announced at launch.",
-       faq=[("Does my child need a bank account or card?", "No. Chore Jar keeps a record of what you owe each child. You hand over the money however you like.")],
-       disclaimer="Chore Jar is a record-keeping app for parents. It does not hold money or connect to a bank.",
-       what="tracking children's chores and pocket money for parents",
-       stored="your children's first names, chores, ticks, balances and your parent PIN", extra="",
-       children="Chore Jar is set up and managed by a parent. Children may tick off their own chores, but the app collects nothing from them: the names and records you enter stay on your device, and nothing is sent to us or to anyone else. There are no adverts and no links out of the app for children to follow."),
+       lead="A chore chart and a pocket-money jar in one. Grown-ups tick the jobs, the week pays out by the rules you set, and each child sees their week on their own look-only screen.",
+       price_line="Free · coming soon to the App Store and Google Play",
+       shots=[],   # new screens from the simulator in phase 6 (the old Dad Bank ones showed a PIN the app no longer has)
+       features=[("check", "Tick in a second", "The app opens on today's chores. Ask your child, then tick it off."),
+                 ("coin", "Pay by your rules", "A weekly amount when the chores are done, or earn it chore by chore, with bonuses and house rules."),
+                 ("jar", "A passbook for every child", "Money in, money out, the balance and a savings goal in one place."),
+                 ("users", "Both parents and the helper", "Everyone ticks on their own phone and sees the same week. The helper never sees money."),
+                 ("tablet", "A look-only screen for kids", "A child's iPad shows their own week and goal. They can look, not change."),
+                 ("lock", "Private by design", "No ads, no tracking, nothing sold. Delete your account or the whole family from inside the app.")],
+       who="Parents who want their children to help around the house and learn that money is earned, without a bank account, a card or adverts aimed at kids. ChoreJar is for the grown-ups to run; children only ever see a look-only screen.",
+       prices=[], price_note="ChoreJar is free.",
+       faq=[("Is it free?", "Yes. ChoreJar is free, with no ads."),
+            ("Do we need accounts?", "Grown-ups sign in with Apple, Google or an email link, so both parents and a helper see the same family. Children don't need an account: their iPad joins with a family code."),
+            ("Who can see the money?", "Parents see balances and the passbook. A helper can tick chores and sees goals as a percentage, never amounts. A child's device shows their own week, and their savings only if a parent turns that on."),
+            ("Does my child need a bank account or card?", "No. ChoreJar keeps a record of what you owe each child. You hand over the money however you like."),
+            ("Where is our information kept?", 'In a private database for your family on Google Firebase in Singapore, so every phone stays in step. Only your family can read it. <a href="/chorejar/privacy">Privacy policy</a>')],
+       disclaimer="ChoreJar is a record-keeping app for parents. It does not hold money or connect to a bank.",
+       what="", stored="", extra="",
+       support_data="Your family's records are kept online so every phone stays in step, which also means deleting the app doesn't delete them. To delete your account or the whole family, open Account › Delete in the app.",
+       support_sections='''<h2>Signing in and joining</h2>
+<ul><li><b>Grown-ups</b> sign in with Apple, Google or an email link. The email link should be opened on the same phone you asked for it on. If it opens in a browser instead, copy the whole link and paste it on the email sign-in screen.</li>
+<li><b>The other parent or the helper:</b> a parent makes a code in Account › Invite someone. On their own phone, they sign in, tap "I have a code" and type it.</li>
+<li><b>A child's iPad:</b> make a code for that child, then on the iPad open ChoreJar, tap "Use a family code" and scan or type it.</li>
+<li>Codes work once and last 7 days. If one has expired, make a new one.</li></ul>
+<h2>New phone</h2>
+<p>Install ChoreJar and sign in the same way as before. Your family is waiting: nothing is kept only on the old phone.</p>'''),
   dict(slug="rentreceiptbook", who_title="For small, private landlords.", name="Rent Receipt Book", subtitle="Landlord rent ledger & tracker",
        accent="#06445D", soft="#DCEBF1", icon="icon.webp",
        short="Record a payment in a few taps and send your tenant a numbered, signed PDF receipt. See who has paid at a glance, get a nudge when rent is due, and export a year-end summary for your tax return.",
@@ -278,7 +286,7 @@ def phone(a, i=0, lazy=True):
             f'{icon(a, "icon", 88)}<span>Screens coming soon</span></div></div>')
 
 def index():
-    promises = [("user-off", "No account to create"), ("ad-off", "No adverts, ever"), ("phone", "Data stays on your device"), ("wifi-off", "Works offline")]
+    promises = [("lock", "Nothing sold, no tracking"), ("ad-off", "No adverts, ever"), ("phone", "Data stays on your device"), ("wifi-off", "Works offline")]
     pr = "".join(f'<div class="promise">{svg(i)}{t}</div>' for i, t in promises)
     rrb, jsp = APPS[1], APPS[2]
     cards = ""
@@ -297,7 +305,7 @@ def index():
     </a>"""
     names = ", ".join(a["name"] for a in APPS)
     return head("Plainsail Apps: simple apps that do one job brilliantly",
-                f"Simple, private mobile apps for iPhone, iPad and Android: {names}. No accounts, no ads, your data stays on your device.") + f"""
+                f"Simple, private mobile apps for iPhone, iPad and Android: {names}. No ads, no tracking, and nothing sold.") + f"""
 <main>
   <section class="hero"><div class="wrap">
     <div class="hero-copy">
@@ -325,7 +333,7 @@ def index():
   <section class="section dark" id="how"><div class="wrap">
     <h2>Built the plain way, on purpose.</h2>
     <div class="cols">
-      <div><h3>Private by design</h3><p>No accounts, no ads, no tracking. What you type stays on your phone or tablet. The one exception is FinanceKids, which sends anonymous usage counts and a streak backup, and says exactly what in its own policy. <a href="/privacy.html" style="color:#fff">Read the privacy policy</a>.</p></div>
+      <div><h3>Private by design</h3><p>No ads, no tracking, and no accounts in all but one app. What you type stays on your phone or tablet. Two exceptions say exactly what in their own policies: FinanceKids sends anonymous usage counts and a streak backup, and ChoreJar keeps a private family database so the whole family stays in step. <a href="/privacy.html" style="color:#fff">Read the privacy policy</a>.</p></div>
       <div><h3>Fair, clear pricing</h3><p>Try each app free first. Pay through the App Store or Google Play, and cancel there whenever you like.</p></div>
       <div><h3>Every screen size</h3><p>One app for iPhone, iPad, Android phones and Android tablets, so you can use whichever device is to hand.</p></div>
     </div>
@@ -433,13 +441,15 @@ def privacy(a):
 <p>Questions about this policy: <a href="mailto:{EMAIL}">{EMAIL}</a></p>
 {f'<p class="muted">{a["disclaimer"]}</p>' if a['disclaimer'] else ""}""", a)
 
+SUBSCRIPTION_HELP = '''<h2>Subscriptions</h2>
+<ul><li><b>Restore purchases:</b> open the app's Settings and tap Restore purchases.</li>
+<li><b>Cancel or change a subscription:</b> on iPhone or iPad, go to Settings, tap your name, then Subscriptions. On Android, open Google Play, tap your profile, then Payments &amp; subscriptions.</li>
+<li><b>Refunds</b> are handled by Apple or Google under their own policies.</li></ul>'''
+
 def support(a):
     return doc(f"{a['name']}: Support", f"Help and support for {a['name']}.", f"""<h1>{a['name']}: Support</h1>
 <p>Need help, found a problem or have a suggestion? Email <a href="mailto:{EMAIL}?subject={a['name'].replace(' ','%20')}">{EMAIL}</a> and include the app name, your device and what happened. We usually reply within two working days.</p>
-<h2>Subscriptions</h2>
-<ul><li><b>Restore purchases:</b> open the app's Settings and tap Restore purchases.</li>
-<li><b>Cancel or change a subscription:</b> on iPhone or iPad, go to Settings, tap your name, then Subscriptions. On Android, open Google Play, tap your profile, then Payments &amp; subscriptions.</li>
-<li><b>Refunds</b> are handled by Apple or Google under their own policies.</li></ul>
+{a.get("support_sections") or SUBSCRIPTION_HELP}
 <h2>Your data</h2>
 <p>{a.get("support_data", "Your data stays on your device. We can't see it, so we can't recover it if the app is deleted.")} Read the <a href="{'/' + a['slug'] + '/privacy' if a.get('privacy_ready', True) else '/privacy.html'}">privacy policy</a>.</p>
 {f'<p class="muted">{a["disclaimer"]}</p>' if a['disclaimer'] else ""}""", a)
@@ -463,7 +473,7 @@ for a in APPS:
     if a.get("privacy_custom"): rewrap_app_privacy(a)  # hand-written <main>: this app has a server
     elif a.get("privacy_ready", True): (d/"privacy.html").write_text(privacy(a))
     (d/"support.html").write_text(support(a))
-rewrap("privacy.html", "Privacy Policy: Plainsail Apps", "How Plainsail Apps handle your information: no accounts, no ads, no tracking.")
+rewrap("privacy.html", "Privacy Policy: Plainsail Apps", "How Plainsail Apps handle your information: no ads, no tracking, nothing sold.")
 rewrap("support.html", "Support: Plainsail Apps", "Help with Plainsail Apps: purchases, subscriptions, refunds and moving to a new phone.")
 (ROOT/"CNAME").write_text("plainsailapps.com\n")
 (ROOT/"404.html").write_text(doc("Page not found", "Page not found.", '<h1>Page not found</h1><p><a href="/">Go to the apps</a></p>'))

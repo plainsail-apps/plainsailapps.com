@@ -65,7 +65,7 @@ COMMON_FAQ = [
 
 APPS = [
   dict(slug="financekids", who_title="For P1 to P5 children and their parents.", name="FinanceKids", subtitle="Five minutes a day of money habits, for primary school",
-       accent="#5B52C7", soft="#ECEBFA", icon=None, icon_svg="coin",
+       accent="#5B52C7", soft="#ECEBFA", icon="icon.webp",
        status="In testing", platforms="iPhone & iPad", ios_only=True, store_label="In testing for",
        cta="FinanceKids is in testing now, on iPhone and iPad.", privacy_custom=True, own_faq_only=True,
        support_data="FinanceKids is a simulation and never handles real money.",

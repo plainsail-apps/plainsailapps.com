@@ -47,6 +47,8 @@ ICONS = {
   "flame": '<path d="M12 22c4 0 7-3 7-7 0-5-4-7-5-12-2 2-3 4-3 6-1-1-2-2-2-4-2 2-4 5-4 10 0 4 3 7 7 7z"/>',
   "calendar": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
   "ad-off": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 3l18 18"/>',
+  "house": '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  "bulb": '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',
 }
 
 def svg(name, cls="", stroke="currentColor", size=None):
@@ -88,6 +90,42 @@ APPS = [
             ("How long does it take each day?", "About five minutes: one short lesson, a quiz and the daily challenge.")],
        disclaimer="FinanceKids is an educational game. It does not handle real money or give financial advice.",
        what="", stored="", extra=""),
+  dict(slug="hophome", who_title="For children who like puzzles, and their grown-ups.", name="Hop Home", subtitle="A sliding-block puzzle for kids",
+       accent="#C8381F", soft="#FBE6E1", icon=None, icon_svg="house",
+       status="In testing", platforms="iPhone & iPad", ios_only=True, store_label="In testing for",
+       cta="Hop Home is in testing now, on iPhone and iPad.", own_faq_only=True, updated="23 November 2026",
+       short="Slide the blocks out of the way so each trapped animal can hop home. Easy, Medium and Hard puzzles, each with its own ten animals to rescue.",
+       chips=["No ads, no tracking", "Easy, Medium and Hard", "Works offline"],
+       h1="Clear the blocks. Bring them home.",
+       lead="A friendly sliding-block puzzle. Each animal is stuck behind the blocks: slide them out of the way, one at a time, and help it hop all the way home.",
+       price_line="In testing on iPhone and iPad",
+       shots=[],
+       features=[("house", "Bring the animals home", "Slide each block out through its own gate and the animal hops home."),
+                 ("chart", "Easy, Medium and Hard", "Three difficulties, each with its own set of ten animals."),
+                 ("target", "Stars for fewest moves", "Solve a puzzle in the fewest moves for three stars, then try to beat your best."),
+                 ("book", "My animals", "A map of every animal rescued, and any finished puzzle can be played again."),
+                 ("bulb", "Help when stuck", "A hint shows the next move, and a gentle clue appears if a puzzle stalls."),
+                 ("ad-off", "No ads, no tracking", "No adverts, no accounts and nothing collected. Progress stays on the device.")],
+       who="Children who enjoy puzzles, from early readers to confident solvers, and the parents who want a game with no ads, no chat and nothing to sign up for. Easy starts with one block at a time; Hard asks for real planning.",
+       prices=[("Free", "$0", "", "The first three animals in each difficulty."),
+               ("Full game", "$3.99", "once", "Every animal and every puzzle. No subscription.", "One-time")],
+       price_note="Planned launch pricing in US dollars; your store shows your local price. The full game is a single one-time purchase, made by a grown-up.",
+       faq=[("Is it safe for my child?", "Yes. There are no ads, no chat, no accounts and no links out of the game, and nothing is collected. The purchase and the difficulty settings sit behind a grown-ups check."),
+            ("Do we need an account or the internet?", "No. Open the app and play. It works offline."),
+            ("Where is progress kept?", "Only on the device. Each child's iPad keeps its own progress, and deleting the app deletes it."),
+            ("How do I restore the full game on a new device?", 'Open the grown-ups area in the app and tap Restore purchase. <a href="/hophome/support">More help</a>')],
+       disclaimer="",
+       what="a sliding-block puzzle game for children",
+       stored="puzzle progress, stars, best moves and the sound setting",
+       children="Hop Home is made for children. It collects no information from anyone, child or adult: there are no accounts, no analytics, no advertising and no links out of the app. The purchase and the settings are behind a grown-ups check.",
+       extra="",
+       support_data="Progress is kept only on the device. We can't see it, so we can't recover it if the app is deleted.",
+       support_sections='''<h2>The full game</h2>
+<ul><li><b>Restore on a new device:</b> open the grown-ups area in the app and tap Restore purchase, signed in with the Apple ID that bought it.</li>
+<li><b>Ask to Buy:</b> if your child's Apple ID uses Ask to Buy, the purchase waits for a parent's approval.</li>
+<li><b>Refunds</b> are handled by Apple under its own policies.</li></ul>
+<h2>Progress</h2>
+<p>Each device keeps its own progress, so two children with their own iPads each have their own animals and stars.</p>'''),
   dict(slug="aigovernanceprep", who_title="For anyone sitting the AIGP exam.", name="AI Governance Prep", subtitle="AIGP exam practice questions",
        accent="#0957EC", soft="#E3ECFD", icon=None, icon_svg="shield",
        short="500 original, scenario-based questions mapped to the current AIGP Body of Knowledge, with an explanation for every right and wrong answer. Practise by domain or sit full mock exams.",
@@ -426,7 +464,7 @@ def doc(title, desc, body, a=None):
 
 def privacy(a):
     return doc(f"{a['name']}: Privacy Policy", f"Privacy policy for {a['name']}.", f"""<h1>{a['name']}: Privacy Policy</h1>
-<p class="muted">Last updated {UPDATED}. Publisher: {PUBLISHER}, Singapore.</p>
+<p class="muted">Last updated {a.get("updated", UPDATED)}. Publisher: {PUBLISHER}, Singapore.</p>
 <p>{a['name']} is an app for {a['what']}.</p>
 <h2>What we collect</h2>
 <p>Nothing. The app has no accounts, no analytics, no advertising and no server. Everything you enter, including {a['stored']}, is stored only on your device. It is deleted when you delete the app.</p>

@@ -60,7 +60,7 @@ def svg(name, cls="", stroke="currentColor", size=None):
 COMMON_FAQ = [
   ("Do I need an account?", "No. Open the app and start. There's nothing to sign up for."),
   ("Where is my information kept?", "Only on your device. We have no server and can't see it."),
-  ("Does it work on iPad and Android tablets?", "Yes. The same app runs on iPhone, iPad, Android phones and Android tablets."),
+  ("Is it on iPad or Android?", "It launches on iPhone first, and iPhone apps can also be installed on an iPad from the App Store. Android and a full iPad version are planned."),
 ]
 
 APPS = [
@@ -127,9 +127,10 @@ APPS = [
 <h2>Progress</h2>
 <p>Each device keeps its own progress, so two children with their own iPads each have their own animals and stars.</p>'''),
   dict(slug="aigovernanceprep", who_title="For anyone sitting the AIGP exam.", name="AI Governance Prep", subtitle="AIGP exam practice questions",
+       platforms="iPhone", ios_only=True,
        accent="#0957EC", soft="#E3ECFD", icon=None, icon_svg="shield",
        short="500 original, scenario-based questions mapped to the current AIGP Body of Knowledge, with an explanation for every right and wrong answer. Practise by domain or sit full mock exams.",
-       chips=["iPhone, iPad & Android", "30 free questions", "Five mock exams"],
+       chips=["Works offline", "30 free questions", "Five mock exams"],
        h1="Walk into the AIGP exam ready.",
        lead="Original, scenario-based practice questions for the IAPP AI Governance Professional exam, with clear explanations that teach the reasoning, not just the answer.",
        price_line="30 free questions · then $9.99 a month",
@@ -142,24 +143,25 @@ APPS = [
                  ("clock", "Full mock exams", "Five 100-question timed exams with no repeated questions."),
                  ("check", "Every answer explained", "Learn why the right answer is right and why the others are wrong."),
                  ("chart", "Progress by domain", "See your scores improve and where to spend your study time."),
-                 ("tablet", "Study anywhere", "iPhone, iPad and Android, and it works offline.")],
+                 ("tablet", "Study anywhere", "On your iPhone, and it works offline.")],
        who="People preparing for the IAPP AIGP certification: privacy, risk, compliance, legal and technology professionals who need to understand how AI is governed. Questions for ISACA's AAISM and AAIA exams will be added to the same app later.",
        prices=[("Free", "$0", "", "30 sample questions across all four domains."),
                ("Monthly", "$9.99", "/month", "Every question, every mock exam."),
                ("3 months", "$24.99", "", "Enough time to prepare, at a lower price.", "Best value")],
-       price_note="Prices in US dollars; your store shows your local price. Subscriptions renew automatically and can be cancelled in your App Store or Google Play settings.",
+       price_note="Prices in US dollars; your store shows your local price. Subscriptions renew automatically and can be cancelled in your App Store settings.",
        faq=[("Are these real exam questions?", "No. Every question is original and written for practice. We never use or copy questions from the real exam or the official practice exam.")],
        disclaimer="AI Governance Prep is an independent study aid and is not affiliated with, endorsed by or sponsored by the IAPP or ISACA. AIGP is a trademark of the IAPP; AAISM and AAIA are trademarks of ISACA.",
        what="practice questions and mock exams for AI governance certifications",
        stored="your answers, scores, flagged questions and mock exam results", extra=""),
   dict(slug="chorejar", who_title="For parents who want help around the house.", name="ChoreJar", subtitle="Chores & pocket money for families",
+       platforms="iPhone", ios_only=True,
        accent="#C1305F", soft="#FBE3EA", icon=None, icon_svg="jar",
        privacy_custom=True, own_faq_only=True,
        short="A chore chart and a pocket-money jar in one. Grown-ups tick the jobs, the week pays out by the rules you set, and every phone in the family stays in step.",
        chips=["Free, no ads", "The whole family in step", "Kids look, grown-ups tick"],
        h1="Chores done. Pocket money earned.",
        lead="A chore chart and a pocket-money jar in one. Grown-ups tick the jobs, the week pays out by the rules you set, and each child sees their week on their own look-only screen.",
-       price_line="Free · coming soon to the App Store and Google Play",
+       price_line="Free · coming soon to the App Store",
        shots=[],   # new screens from the simulator in phase 6 (the old Dad Bank ones showed a PIN the app no longer has)
        features=[("check", "Tick in a second", "The app opens on today's chores. Ask your child, then tick it off."),
                  ("coin", "Pay by your rules", "A weekly amount when the chores are done, or earn it chore by chore, with bonuses and house rules."),
@@ -185,6 +187,7 @@ APPS = [
 <h2>New phone</h2>
 <p>Install ChoreJar and sign in the same way as before. Your family is waiting: nothing is kept only on the old phone.</p>'''),
   dict(slug="rentreceiptbook", who_title="For small, private landlords.", name="Rent Receipt Book", subtitle="Landlord rent ledger & tracker",
+       platforms="iPhone", ios_only=True,
        accent="#06445D", soft="#DCEBF1", icon="icon.webp",
        short="Record a payment in a few taps and send your tenant a numbered, signed PDF receipt. See who has paid at a glance, get a nudge when rent is due, and export a year-end summary for your tax return.",
        chips=["PDF receipts", "Ledger per tenant", "Year-end CSV"],
@@ -206,7 +209,7 @@ APPS = [
                ("Pro monthly", "$2.99", "/month", "Unlimited properties, tenants and receipts."),
                ("Pro yearly", "$19.99", "/year", "Everything in Pro for less than half the monthly price.", "Best value"),
                ("Lifetime", "$39.99", "", "Pay once and keep Pro for good.")],
-       price_note="Prices in US dollars; your store shows your local price. Subscriptions renew automatically and can be cancelled in your App Store or Google Play settings.",
+       price_note="Prices in US dollars; your store shows your local price. Subscriptions renew automatically and can be cancelled in your App Store settings.",
        faq=[("Does it work in my country?", "Yes, in any currency, and every receipt field can be edited. Receipt rules differ by country, so the app doesn't give legal or tax advice.")],
        disclaimer="Receipts are records you create. The app does not give legal or tax advice for any country.",
        what="rent receipts and a rent ledger for small landlords",
@@ -219,6 +222,7 @@ APPS = [
        h1="Practise more. Know you did.",
        lead="A one-tap practice timer and log. Every session is saved with notes and a rating, so you can see your streak and how much you really played this week.",
        price_line="Free to use · Pro US$9.99 once",
+       platforms="iPhone", ios_only=True, one_time=True,
        shots=[("screen-1.webp", 'Today at a glance', 'Minutes against your goal, and your streak.'),
               ("screen-2.webp", 'One-tap timer', 'Tap to start, tap to stop.'),
               ("screen-3.webp", 'Log a session', 'Length, instrument, a rating and a note.'),
@@ -239,6 +243,7 @@ APPS = [
        stored="your practice sessions, notes, ratings, instruments, goals and settings",
        extra="If you turn on the daily reminder, the app schedules a notification on your device; nothing is sent to us. If you export your practice log as a CSV file, it goes only where you choose to send or save it."),
   dict(slug="jobsheetpad", who_title="For sole traders and small firms.", name="Job Sheet Pad", subtitle="Daywork sheets & signatures",
+       platforms="iPhone", ios_only=True,
        accent="#282F3B", soft="#E4E7EC", icon="icon.webp",
        short="Replace the paper pad in the van. Log labour, materials and before-and-after photos, get the customer to sign on screen, and send a tidy PDF before you leave site, even with no signal.",
        chips=["Day work & price work", "Photos & signature", "Fully offline"],
@@ -260,7 +265,7 @@ APPS = [
                ("Pro monthly", "$4.99", "/month", "Unlimited job sheets."),
                ("Pro yearly", "$34.99", "/year", "Everything in Pro, about five months free.", "Best value"),
                ("Lifetime", "$79.99", "", "Pay once and keep Pro for good.")],
-       price_note="Prices in US dollars (UK: £3.99 a month, £27.99 a year, £64.99 lifetime); your store shows your local price. Subscriptions renew automatically and can be cancelled in your App Store or Google Play settings.",
+       price_note="Prices in US dollars (UK: £3.99 a month, £27.99 a year, £64.99 lifetime); your store shows your local price. Subscriptions renew automatically and can be cancelled in your App Store settings.",
        faq=[("Does it add VAT or GST?", "Yes, if you turn it on. Set your rate once and every sheet adds it for you.")],
        disclaimer="",
        what="job sheets with labour, materials, photos and customer signatures for tradespeople",
@@ -336,18 +341,18 @@ def index():
         <div class="app-id">{icon(a)}<div><strong>{a['name']}</strong><span>{html.escape(a['subtitle'])}</span></div></div>
         <p>{html.escape(a['short'])}</p>
         <div class="chips">{chips}</div>
-        <div class="status">{html.escape(a.get("status", "Coming soon to the App Store and Google Play"))}</div>
+        <div class="status">{html.escape(a.get("status", "Coming soon to the App Store" if a.get("ios_only") else "Coming soon to the App Store and Google Play"))}</div>
         <div class="more">Explore {a['name']} →</div>
       </div>
       <div class="card-art" aria-hidden="true">{phone(a, 0)}</div>
     </a>"""
     names = ", ".join(a["name"] for a in APPS)
     return head("Plainsail Apps: simple apps that do one job brilliantly",
-                f"Simple, private mobile apps for iPhone, iPad and Android: {names}. No ads, no tracking, and nothing sold.") + f"""
+                f"Simple, private mobile apps for iPhone: {names}. No ads, no tracking, and nothing sold.") + f"""
 <main>
   <section class="hero"><div class="wrap">
     <div class="hero-copy">
-      <p class="eyebrow">Mobile apps for iPhone, iPad and Android</p>
+      <p class="eyebrow">Mobile apps for iPhone</p>
       <h1>Simple apps that do one job brilliantly.</h1>
       <p class="lead">Exam prep, rent receipts, job sheets, pocket money, music practice and money lessons for kids. Each app is built for one kind of person and one task, and works without an account, an advert or a signal.</p>
       <div class="btns"><a class="btn" href="#apps">See the apps</a><a class="btn ghost" href="#how">How we treat your data</a></div>
@@ -372,8 +377,8 @@ def index():
     <h2>Built the plain way, on purpose.</h2>
     <div class="cols">
       <div><h3>Private by design</h3><p>No ads, no tracking, and no accounts in all but one app. What you type stays on your phone or tablet. Two exceptions say exactly what in their own policies: FinanceKids sends anonymous usage counts and a streak backup, and ChoreJar keeps a private family database so the whole family stays in step. <a href="/privacy.html" style="color:#fff">Read the privacy policy</a>.</p></div>
-      <div><h3>Fair, clear pricing</h3><p>Try each app free first. Pay through the App Store or Google Play, and cancel there whenever you like.</p></div>
-      <div><h3>Every screen size</h3><p>One app for iPhone, iPad, Android phones and Android tablets, so you can use whichever device is to hand.</p></div>
+      <div><h3>Fair, clear pricing</h3><p>Try each app free first. Pay through the App Store, and cancel there whenever you like.</p></div>
+      <div><h3>iPhone first</h3><p>Every app launches on iPhone. iPad and Android versions are planned.</p></div>
     </div>
   </div></section>
 </main>
@@ -414,11 +419,11 @@ def app_page(a):
     <p class="fine">{html.escape(a['price_note'])}</p>
   </div></section>"""
     faqs = a["faq"] + ([] if a.get("own_faq_only") else COMMON_FAQ) + ([] if a.get("own_faq_only") else [("How do I restore a purchase or cancel?",
-            f'Restore purchases is in the app\'s Settings. Subscriptions are cancelled in your App Store or Google Play account. <a href="/{s}/support">More help</a>')])
+            f'Restore purchases is in the app\'s Settings. ' + ("Pro is a one-time purchase, so there is nothing to cancel. " if a.get("one_time") else ("Subscriptions are cancelled in your App Store account settings. " if a.get("ios_only") else "Subscriptions are cancelled in your App Store or Google Play account. ")) + f'<a href="/{s}/support">More help</a>')])
     faq = "".join(f"<details><summary>{html.escape(q)}</summary><p>{ans if '<a' in ans else html.escape(ans)}</p></details>" for q, ans in faqs)
     disc = f'<p class="disclaimer">{html.escape(a["disclaimer"])}</p>' if a["disclaimer"] else ""
     hero_art = phone(a, 0, lazy=False)
-    return head(f"{a['name']}: {a['subtitle']}", f"{a['name']} for iPhone, iPad and Android. {a['short']}", style_vars(a)) + f"""
+    return head(f"{a['name']}: {a['subtitle']}", f"{a['name']} for {a.get('platforms', 'iPhone, iPad and Android')}. {a['short']}", style_vars(a)) + f"""
 <main>
   <section class="app-hero"><div class="wrap">
     <div class="copy">
@@ -451,7 +456,7 @@ def app_page(a):
   </div></section>
 
   <section class="cta"><div class="wrap">
-    <h2>{html.escape(a.get('cta', a['name'] + ' is coming soon to the App Store and Google Play.'))}</h2>
+    <h2>{html.escape(a.get('cta', a['name'] + (' is coming soon to the App Store.' if a.get('ios_only') else ' is coming soon to the App Store and Google Play.')))}</h2>
     <a class="btn ghost" href="mailto:{EMAIL}?subject={a['name'].replace(' ', '%20')}">Ask us a question</a>
   </div></section>
 </main>

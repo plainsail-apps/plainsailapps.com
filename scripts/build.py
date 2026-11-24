@@ -219,6 +219,7 @@ APPS = [
        h1="Practise more. Know you did.",
        lead="A one-tap practice timer and log. Every session is saved with notes and a rating, so you can see your streak and how much you really played this week.",
        price_line="Free to use · Pro US$9.99 once",
+       platforms="iPhone", ios_only=True,
        shots=[("screen-1.webp", 'Today at a glance', 'Minutes against your goal, and your streak.'),
               ("screen-2.webp", 'One-tap timer', 'Tap to start, tap to stop.'),
               ("screen-3.webp", 'Log a session', 'Length, instrument, a rating and a note.'),

@@ -221,7 +221,7 @@ APPS = [
        chips=["One-tap timer", "Streaks", "Weekly totals"],
        h1="Practise more. Know you did.",
        lead="A one-tap practice timer and log. Every session is saved with notes and a rating, so you can see your streak and how much you really played this week.",
-       price_line="Free to use · Pro US$4.99 once",
+       price_line="Free · everything included",
        platforms="iPhone", ios_only=True, one_time=True,
        shots=[("screen-1.webp", 'Today at a glance', 'Minutes against your goal, and your streak.'),
               ("screen-2.webp", 'One-tap timer', 'Tap to start, tap to stop.'),
@@ -234,11 +234,10 @@ APPS = [
                  ("note", "Notes and ratings", "Jot down what you worked on and how it went, per instrument."),
                  ("download", "Export to CSV", "Take your practice log to a spreadsheet or a teacher.")],
        who="Students, adult learners and working musicians who want a simple record of their practice, without an account, a social feed or adverts.",
-       prices=[("Free", "$0", "", "Timer, streaks, goals, reminders and your last 30 days of practice."),
-               ("Pro", "$4.99", "once", "Full history, a 6-month calendar, all-time totals, top pieces and CSV export.", "One-time")],
-       price_note="Prices in US dollars; your store shows your local price. Pro is a one-time purchase, not a subscription, and can be shared with your family.",
+       prices=[("Free", "$0", "", "Everything: timer, streaks, goals, reminders, full history, a 6-month calendar, all-time totals, top pieces and CSV export.")],
+       price_note="Free, with no ads and no account. A one-time Pro upgrade is planned for a later version; everyone who installs now keeps everything free.", free_now=True,
        faq=[("Can I log more than one instrument?", "Yes. Add each instrument once and pick it when you start a session."),
-            ("What happens to my practice log if I delete the app?", "It is deleted too. Your log is stored only on your iPhone, with no account or server, so deleting the app removes it. Restore purchase brings back Pro, not your sessions. With Pro you can export a CSV copy first.")],
+            ("What happens to my practice log if I delete the app?", "It is deleted too. Your log is stored only on your iPhone, with no account or server, so deleting the app removes it. To keep a copy, use Export practice log in Settings first.")],
        disclaimer="",
        what="timing and logging music practice",
        stored="your practice sessions, notes, ratings, instruments, goals and settings",
@@ -419,7 +418,7 @@ def app_page(a):
     <div class="prices">{cells}</div>
     <p class="fine">{html.escape(a['price_note'])}</p>
   </div></section>"""
-    faqs = a["faq"] + ([] if a.get("own_faq_only") else COMMON_FAQ) + ([] if a.get("own_faq_only") else [("How do I restore a purchase or cancel?",
+    faqs = a["faq"] + ([] if a.get("own_faq_only") else COMMON_FAQ) + ([] if a.get("own_faq_only") or a.get("free_now") else [("How do I restore a purchase or cancel?",
             f'Restore purchases is in the app\'s Settings. ' + ("Pro is a one-time purchase, so there is nothing to cancel. " if a.get("one_time") else ("Subscriptions are cancelled in your App Store account settings. " if a.get("ios_only") else "Subscriptions are cancelled in your App Store or Google Play account. ")) + f'<a href="/{s}/support">More help</a>')])
     faq = "".join(f"<details><summary>{html.escape(q)}</summary><p>{ans if '<a' in ans else html.escape(ans)}</p></details>" for q, ans in faqs)
     disc = f'<p class="disclaimer">{html.escape(a["disclaimer"])}</p>' if a["disclaimer"] else ""

@@ -64,16 +64,23 @@ COMMON_FAQ = [
 ]
 
 APPS = [
-  dict(slug="financekids", who_title="For P1 to P5 children and their parents.", name="FinanceKids", subtitle="Five minutes a day of money habits, for primary school",
+  dict(slug="financekids", who_title="For P1 to P5 children and their parents.", name="FinanceKids", subtitle="Money habits in 5 to 10 minutes, for primary school",
        accent="#5B52C7", soft="#ECEBFA", icon="icon.webp",
-       status="In testing", platforms="iPhone & iPad", ios_only=True, store_label="In testing for",
-       cta="FinanceKids is in testing now, on iPhone and iPad.", privacy_custom=True, own_faq_only=True,
-       support_data="FinanceKids is a simulation and never handles real money.",
+       status="Early access", platforms="iPhone & iPad", ios_only=True, store_label="Coming soon to",
+       cta="FinanceKids is free during early access, on iPhone and iPad in Singapore.", privacy_custom=True, free_now=True, own_faq_only=True,
+       support_data="FinanceKids is a simulation and never handles real money. Progress stays on the device; only anonymous usage events and a streak backup are sent, labelled with a random code. You can switch the usage events off, or erase everything, in Parent Dashboard › Your data.",
+       support_sections='''<h2>Common questions</h2>
+<ul><li><b>Forgot the parent PIN?</b> Tap <b>Forgot your PIN?</b> on the PIN screen and follow the steps. Your child's progress, coins and streak are kept.</li>
+<li><b>New device, or the app was deleted?</b> On the old device, open Parent Dashboard › Your data and copy <b>This device's code</b>. On the new device, go to Parent Dashboard › Your data › <b>I have a code from another device</b> and enter it. The streak comes back; lessons, coins and Finn stay on the device they were earned on.</li>
+<li><b>Two children?</b> For now it's one child per device.</li>
+<li><b>Start again from scratch?</b> Parent Dashboard › Your data › <b>Erase everything on this device</b>. This can't be undone.</li>
+<li><b>Ideas or feedback?</b> Use <b>Tell us what you think</b> in the Parent Dashboard, or email <a href="mailto:hello@financekids.app">hello@financekids.app</a>.</li></ul>
+<p>FinanceKids has no purchases or subscriptions, so there is nothing to restore or cancel.</p>''',
        short="A daily money-habits game for Singapore primary-school children, P1 to P5. Each day is a short lesson, a quiz and a challenge, hosted by Finn the Fox.",
-       chips=["Ages 7 to 11", "5 minutes a day", "Parent area with PIN"],
-       h1="Money habits, five minutes a day.",
-       lead="A short lesson, a quiz and a daily challenge, hosted by Finn the Fox. Keep the streak going and your pet grows. Made for Singapore primary-school children from P1 to P5.",
-       price_line="In testing on iPhone and iPad",
+       chips=["Ages 7 to 11", "5 to 10 minutes a lesson", "Parent area with PIN"],
+       h1="Money habits, a few minutes at a time.",
+       lead="A short lesson, a quiz and a daily challenge, hosted by Finn the Fox. The streak counts weeks, so weekends-only is fine. Made for Singapore primary-school children from P1 to P5.",
+       price_line="Free during early access, iPhone and iPad, Singapore",
        shots=[("screen-1.webp", 'Say hi to Finn', 'Finn greets your child and shows their level.'),
               ("screen-2.webp", 'Short lessons with Finn', 'Singapore coins and notes, one idea at a time.'),
               ("screen-3.webp", 'A quiz after every lesson', 'Instant feedback, with coins and XP to earn.'),
@@ -81,13 +88,13 @@ APPS = [
        features=[("book", "30 lessons", "Bite-sized money lessons that build from P1 to P5."),
                  ("check", "A quiz every day", "Check what stuck, with Finn the Fox cheering them on."),
                  ("target", "360 daily challenges", "A fresh money challenge each day, so it never repeats too soon."),
-                 ("flame", "A pet that grows", "Keep the daily streak going and the pet grows with it."),
+                 ("flame", "Weeks in a row", "Play once in a week and the week counts. Every day or weekends only both work."),
                  ("lock", "Grown-ups area", "Progress for parents, behind a PIN."),
                  ("users", "Talk about it at home", "A conversation prompt for every lesson, to chat through together.")],
        who="Children in Singapore primary schools, from P1 to P5 (ages 7 to 11), and the parents who want them to grow up confident with money. It's simulation only and never handles real money.",
-       prices=[], price_note="Pricing will be announced at launch.",
+       prices=[], price_note="Free during early access: no ads, no accounts, nothing to buy.",
        faq=[("Does it use real money?", "No. FinanceKids is a simulation. It never handles real money and never connects to a bank."),
-            ("How long does it take each day?", "About five minutes: one short lesson, a quiz and the daily challenge.")],
+            ("How long does it take?", "A lesson and its quiz take 5 to 10 minutes. The daily challenge is three quick questions. Once a week is enough to keep the streak.")],
        disclaimer="FinanceKids is an educational game. It does not handle real money or give financial advice.",
        what="", stored="", extra=""),
   dict(slug="hophome", who_title="For children who like puzzles, and their grown-ups.", name="Hop Home", subtitle="A sliding-block puzzle for kids",

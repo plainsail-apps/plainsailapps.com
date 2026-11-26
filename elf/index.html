@@ -49,6 +49,7 @@ h3{color:#fff;font-size:22px;margin:36px 0 12px;font-weight:600}
 .who{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
 .who button{min-height:40px;font-size:14px;padding:6px 14px;border:1.5px solid var(--c);color:var(--c)}
 .who button.me{background:var(--c);color:#fff}
+.tag{display:inline-block;color:#fff;font-size:13px;font-weight:500;border-radius:999px;padding:2px 10px;vertical-align:middle;white-space:nowrap}.tag.open{background:transparent;color:var(--mute);border:1.5px dashed var(--mute)}
 .whol{margin:12px 0 0;font-size:14px;color:var(--mute)}
 .sync{display:inline-block;background:#0003;color:#fff;border-radius:999px;padding:4px 12px;font-size:13.5px;margin:0 0 14px}
 .sync.ok{background:#1f8a5b}
@@ -144,6 +145,7 @@ try{st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
 const put=n=>{save();if(fb)fb.setDoc(fb.doc(fb.db,"elf2026",String(n)),{who:st.who[n]||"",done:!!st.done[n],swap:st.swap[n]??null}).catch(()=>setSync(false))};
 const setSync=ok=>{syncEl.textContent=ok?"Live: everyone sees the same ticks and names.":"Not connected: changes are only saved on this phone for now.";syncEl.className=ok?"sync ok":"sync"};
+const badge=n=>{const w=st.who[n];if(!w)return '<span class="tag open">Up for grabs</span>';const c=(PEOPLE.find(x=>x[0]===w)||[,'#555'])[1];return '<span class="tag" style="background:'+c+'">'+esc(w)+'\'s doing this</span>'};
 const whoBtns=n=>'<div class="who" role="group" aria-label="Who is doing '+n+' December">'+PEOPLE.map(([p,c])=>'<button style="--c:'+c+'" class="'+(st.who[n]===p?"me":"")+'" data-who="'+n+'|'+p+'">'+(st.who[n]===p?"✓ ":"")+p+'</button>').join("")+'</div>';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const idea=n=>st.swap[n]!=null?SPARES[st.swap[n]]:NIGHTS[n-1];
@@ -161,8 +163,8 @@ function hero(){
   const h=document.getElementById("hero");
   if(!target){h.innerHTML='<div class="when">'+(m===11?"Merry Christmas!":"Starts 30 November")+'</div><h2>'+(m===11?"The elf has gone home 🎄":"The elf flies in on 1 December")+'</h2><p class="swapnote">The first setup happens on the night of 30 November.</p>';return}
   const [sc,t,how,need,q]=idea(target),done=!!st.done[target];
-  h.innerHTML='<div class="when">'+esc(label)+'</div><div class="scene" aria-hidden="true">'+sc+'</div><h2>'+esc(t)+'</h2><p style="margin:0">'+esc(how)+'</p><div class="need"><b>You need</b>'+esc(need)+'</div>'
-  +'<p class="whol">Who\'s doing it?</p>'+whoBtns(target)
+  h.innerHTML='<div class="when">'+esc(label)+'</div><div class="scene" aria-hidden="true">'+sc+'</div><h2>'+esc(t)+'</h2><p style="margin:0 0 10px">'+badge(target)+'</p><p style="margin:0">'+esc(how)+'</p><div class="need"><b>You need</b>'+esc(need)+'</div>'
+  +'<p class="whol">Who\'s doing it? Tap your name to put your hand up.</p>'+whoBtns(target)
   +'<div class="btns"><button class="'+(done?"isdone":"primary")+'" data-tick="'+target+'">'+(done?"✓ Done":"Mark as done")+'</button>'
   +'<a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">See photos</a>'
   +'<button data-swap="'+target+'">Swap for a spare</button>'
@@ -170,7 +172,7 @@ function hero(){
 }
 function door(n){
   const [sc,t,how,need,q]=idea(n),done=!!st.done[n];
-  return '<article class="door'+(done?" done":"")+(n===target?" today":"")+'"><div class="d">'+n+' Dec<span aria-hidden="true">'+[...sc][0]+'</span></div><h4>'+esc(t)+'</h4><p>'+esc(how)+'</p><p><b>Need:</b> '+esc(need)+'</p>'
+  return '<article class="door'+(done?" done":"")+(n===target?" today":"")+'"><div class="d">'+n+' Dec<span aria-hidden="true">'+[...sc][0]+'</span></div><h4>'+esc(t)+' '+badge(n)+'</h4><p>'+esc(how)+'</p><p><b>Need:</b> '+esc(need)+'</p>'
   +'<div style="grid-column:2">'+whoBtns(n)+'</div><div class="row" style="grid-column:2"><button class="'+(done?"isdone":"")+'" data-tick="'+n+'">'+(done?"✓ Done":"Tick")+'</button><a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">Photos</a><button data-swap="'+n+'">'+(st.swap[n]!=null?"Swapped ↺":"Swap")+'</button></div></article>';
 }
 function spare(s,i){

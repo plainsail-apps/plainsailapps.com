@@ -64,7 +64,7 @@ h3{color:#fff;font-size:22px;margin:36px 0 12px;font-weight:600}
 <h3>All 24 nights</h3>
 <div class="grid" id="grid"></div>
 
-<h3>Spares for lazy nights</h3>
+<h3>Spares for lazy nights (20)</h3>
 <div class="grid" id="spares"></div>
 
 <h3>House rules for the elf</h3>
@@ -116,7 +116,19 @@ const SPARES=[
 ["⛺🔦","Camping trip","A napkin tent over two pencils, elf inside with a small torch.","Napkin, pencils, a torch","elf on the shelf camping napkin tent"],
 ["🎹🎶","Concert","Elf at a toy keyboard or a drawn paper piano, soft toys as the audience.","Toy keyboard or paper","elf on the shelf piano concert"],
 ["🍱🤫","Lunchbox stowaway","Elf hiding inside a lunchbox with a note: \"Take me to school?\" (then it stays home).","A lunchbox, note","elf on the shelf lunch box"],
-["🧑‍🎨🖍️","Elf art class","Elf has drawn a wonky portrait of each girl on paper, crayons scattered.","Paper, crayons","elf on the shelf drawing portraits"]];
+["🧑‍🎨🖍️","Elf art class","Elf has drawn a wonky portrait of each girl on paper, crayons scattered.","Paper, crayons","elf on the shelf drawing portraits"],
+["🌯🍫","Foil burrito","Elf wrapped up snug in kitchen foil with only the face peeking out: \"Keeping warm in the aircon.\"","Kitchen foil","elf on the shelf wrapped in foil"],
+["🧃🥤","Drinking contest","Elf with a straw in every cup of a row of empty cups, looking very full.","Cups, straws","elf on the shelf drinking straws cups"],
+["🪑🧸","Teacher elf","Elf at the front of a class of soft toys, with sums written on paper as the blackboard.","Soft toys, paper, pen","elf on the shelf teaching stuffed animals school"],
+["💇✂️","Hair salon","Elf \"styling\" a doll's hair, hair clips and a comb everywhere.","A doll, comb, hair clips","elf on the shelf hair salon doll"],
+["🚗🏁","Car race","Elf racing toy cars or riding on one across the table, a paper finish line.","Toy cars, paper","elf on the shelf racing toy cars"],
+["🪴🙈","Jungle explorer","Elf hiding among the house plants with binoculars made from two bottle caps.","A house plant, two bottle caps, tape","elf on the shelf hiding plant binoculars"],
+["🧊🍦","Ice cream raid","Elf caught in the freezer door with a spoon, next to the ice cream tub.","Freezer, a spoon","elf on the shelf ice cream freezer spoon"],
+["🎈🚀","Balloon ride","Elf tied to a balloon floating up by the ceiling (or a balloon taped to the wall).","A balloon, string","elf on the shelf balloon ride"],
+["🃏🧛","Card shark","Elf dealing a game of cards to the teddies, holding a winning hand.","A pack of cards, teddies","elf on the shelf playing cards"],
+["📚🏰","Book fort","Elf in a fort built from the girls' books, a flag made from a sticky note.","Books, sticky note, toothpick","elf on the shelf book fort"],
+["🧽🍽️","Washing up","Elf in the dish rack with a sponge, \"helping\" with last night's plates.","Sponge, dish rack","elf on the shelf washing dishes sink"],
+["⚽🥅","Football match","Elf scoring against a teddy goalkeeper, goal made from two shoes.","A small ball, two shoes, a teddy","elf on the shelf football soccer"]];
 
 const KEY="elf2026";let st={done:{},swap:{}};
 try{st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Elf on the Shelf plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, playful, quick to read at 10pm with an elf in one hand.
+   IDEA: an advent calendar: one door per night, tonight's door open.
+   PICTURE: tonight's card, big, at the top; the calendar of doors below.
+   COLOUR and TYPE: pine green ground, candy red accent, snow white cards; Fredoka.
+   LAYOUT: single column on phones, two-column grid of doors from 700px. */
+:root{color-scheme:light dark;--bg:light-dark(#0f4d3a,#08261d);--card:light-dark(#fffdf8,#12352a);--ink:light-dark(#1d2a24,#eef5f1);--mute:light-dark(#5b6b63,#a9bdb3);--red:#d6283b;--gold:#f5c542;--line:light-dark(#e7e1d4,#24493c);--done:light-dark(#e7f4ec,#173f31)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Fredoka,system-ui,sans-serif;overflow-x:clip}
+main{max-width:980px;margin:0 auto;padding:clamp(20px,4vw,48px) max(4vw,14px) 60px}
+h1{color:#fff;font-size:clamp(30px,6vw,46px);line-height:1.05;margin:0 0 6px;font-weight:600;text-wrap:balance}
+.sub{color:#cfe6dc;margin:0 0 20px;max-width:62ch}
+.hero{background:var(--card);border-radius:22px;padding:clamp(18px,3vw,30px);box-shadow:0 10px 30px #0004;border-top:8px solid var(--red)}
+.hero .when{color:var(--red);font-weight:600;font-size:15px}
+.hero h2{font-size:clamp(26px,4.5vw,36px);line-height:1.1;margin:4px 0 12px;font-weight:600}
+.scene{font-size:clamp(56px,12vw,88px);line-height:1;letter-spacing:4px;margin:6px 0 12px}
+.need{background:light-dark(#fff3cf,#2a3a1c);border-radius:12px;padding:10px 14px;margin:10px 0}
+.need b{display:block;font-size:13px;color:var(--mute);font-weight:500}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+button,a.btn{font:inherit;font-size:15px;min-height:44px;padding:9px 16px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+button.primary{background:var(--red);border-color:var(--red);color:#fff}
+button.isdone{background:#1f8a5b;border-color:#1f8a5b;color:#fff}
+button:focus-visible,a.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+h3{color:#fff;font-size:22px;margin:36px 0 12px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:12px}
+.door{background:var(--card);border-radius:16px;padding:14px 16px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 12px;align-items:start;border:2px solid transparent}
+.door.today{border-color:var(--gold)}
+.door.done{background:var(--done)}
+.door .d{grid-row:span 3;text-align:center;font-weight:600;color:var(--red);font-size:13px;line-height:1.1}
+.door .d span{display:block;font-size:30px;margin-top:2px}
+.door h4{margin:0;font-size:17px;font-weight:600}
+.door p{margin:0;color:var(--mute);font-size:14.5px}
+.door .row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.door .row button,.door .row a.btn{min-height:40px;font-size:14px;padding:6px 12px;border-width:1.5px}
+.door.done h4{text-decoration:line-through;text-decoration-color:#1f8a5b}
+.tips{background:var(--card);border-radius:16px;padding:16px 20px}
+.tips li{margin:6px 0}
+.foot{color:#cfe6dc;font-size:13.5px;margin-top:28px}
+.swapnote{font-size:13px;color:var(--mute);margin:6px 0 0}
+#picker{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:9}
+#picker.open{display:flex}
+#picker .sheet{background:var(--card);border-radius:20px;max-width:560px;width:100%;max-height:80vh;overflow:auto;padding:18px}
+#picker .opt{display:block;width:100%;text-align:left;border-radius:14px;margin:6px 0;border-width:1.5px}
+@media(prefers-reduced-motion:no-preference){.hero{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.97);opacity:0}}}
+</style>
+</head>
+<body>
+<main>
+<h1>Our Elf on the Shelf plan</h1>
+<p class="sub">One easy setup a night from 1 to 24 December, all with things already in the house. Set it up after bedtime, then tick it off. Not feeling it? Swap in a spare.</p>
+
+<section class="hero" id="hero" aria-live="polite"></section>
+
+<h3>All 24 nights</h3>
+<div class="grid" id="grid"></div>
+
+<h3>Spares for lazy nights</h3>
+<div class="grid" id="spares"></div>
+
+<h3>House rules for the elf</h3>
+<ul class="tips">
+<li>Set up after the girls are asleep; the elf "flew back" overnight.</li>
+<li>No flour, powder or cotton-wool "snow": use white paper, towels or toilet roll instead.</li>
+<li>Keep the elf out of the terrapins' tank and away from anything hot or electrical.</li>
+<li>If someone touches the elf: leave a sorry note to Santa and the elf comes back the next night.</li>
+<li>Forgot to move it? The elf "was too tired from flying" and stays put one night.</li>
+</ul>
+
+<p class="foot">Ticks and swaps are saved on this phone. When you finish tonight's setup, tap "Tell the family" to send a WhatsApp so everyone knows it's done. Temporary page, removed after Christmas.</p>
+</main>
+
+<div id="picker" role="dialog" aria-modal="true" aria-label="Pick a spare"><div class="sheet"><h4 style="margin:0 0 6px;font-size:18px">Swap in a spare</h4><div id="opts"></div><button id="closeP" style="margin-top:8px">Cancel</button></div></div>
+
+<script>
+{
+const NIGHTS=[
+["🎒✉️🍬","The elf arrives","Elf sits in a bowl of sweets with a hello note: \"I'm back from the North Pole! I'll be watching until Christmas.\"","A bowl, a few sweets, paper and pen","elf on the shelf arrival letter bowl of sweets"],
+["🧊🥶","Too hot for Singapore","Elf sits inside the fridge door hugging an ice pack, with a note: \"How do you live in this heat?!\"","Fridge, an ice pack or cold drink, sticky note","elf on the shelf in fridge"],
+["☕🛁","Marshmallow bath","Elf sits in a mug full of marshmallows like a bubble bath, a cotton bud as a back scrubber.","A mug, marshmallows (or ice cubes), a cotton bud","elf on the shelf marshmallow bath mug"],
+["🧻⛄","Toilet roll snowman","Three toilet rolls stacked, a paper face taped on, elf standing proudly beside it.","3 toilet rolls, paper, tape, marker","elf on the shelf toilet paper snowman"],
+["🪢🎢","Zip line","String tied between two chairs, elf hanging from a clothes hanger halfway across.","String, a hanger, two chairs","elf on the shelf zip line string"],
+["🎣🐟","Gone fishing","Elf sits on the sink edge with a pencil fishing rod, sweets or crackers in the sink as fish.","Pencil, string, a few sweets or crackers","elf on the shelf fishing in sink"],
+["🧸📖","Bedtime story","Elf reads a picture book to a circle of the girls' soft toys.","A book, soft toys","elf on the shelf reading story to stuffed animals"],
+["🥚😄","Egg family","Faces drawn on the eggs in the fridge tray, elf in the middle like one of the family.","Eggs, a marker","elf on the shelf egg faces fridge"],
+["🪥😁","Toothpaste message","Elf holds a toothbrush by the sink; \"HI!\" written in toothpaste on the mirror.","Toothbrush, toothpaste","elf on the shelf toothpaste mirror message"],
+["🍞☕","Kaya toast breakfast","Elf has set out breakfast for the girls: bread, kaya or jam, and two cups of Milo powder ready.","Bread, kaya or jam, cups, Milo","elf on the shelf making breakfast"],
+["🥣👢","Stuck in the cereal","Elf dived head-first into the cereal box, only the legs sticking out.","A cereal box","elf on the shelf stuck in cereal box"],
+["🛷🛋️","Sofa sledging","Elf rides a baking tray down a slope of sofa cushions.","A baking tray, cushions","elf on the shelf sledding cushions"],
+["🪞🤳","Selfie time","Elf poses with a hand mirror or an old phone; take a real \"elf selfie\" with your phone too.","A small mirror or old phone","elf on the shelf selfie"],
+["👟🙈","Hide and seek","A note on the table: \"Find me!\" Elf hides in one of the girls' shoes.","A shoe, a note","elf on the shelf hide and seek note"],
+["🍿📺","Movie night","Elf sits in front of the TV with a bowl of popcorn and the remote.","Popcorn or any snack, the remote","elf on the shelf movie night popcorn"],
+["🏋️💪","Elf workout","Elf lifting weights made from a pencil and two hair ties, a sweatband from a hair scrunchie.","Pencil, hair ties, scrunchie","elf on the shelf workout weights"],
+["🛁🦆","Bath time","Elf in the empty bath with a rubber duck and a sponge (no water!).","Rubber duck or bath toy, sponge","elf on the shelf bath rubber duck"],
+["📝👨","Moustache mischief","Sticky-note moustaches stuck on family photos, elf holding the pen.","Sticky notes, pen, family photos","elf on the shelf moustache family photos"],
+["💌🌟","Kindness note","Elf leaves a challenge on the window: \"Do one kind thing for your sister today.\"","Sticky notes or paper","elf on the shelf kindness challenge note"],
+["🧱🎲","Game night","Elf playing a board game or Jenga against a teddy; the teddy is winning.","Any board game, a teddy","elf on the shelf playing board game"],
+["🍫🥣","Elf baking","Elf in a mixing bowl with chocolate chips and a wooden spoon, a \"recipe\" note.","Mixing bowl, chocolate chips, spoon","elf on the shelf baking chocolate chips"],
+["🧦😴","Sock sleeping bag","Elf tucked up asleep in a fluffy sock, a tissue as a pillow.","A sock, a tissue","elf on the shelf sleeping in sock"],
+["🎁🎀","Wrapping helper","Elf tangled in ribbon next to a half-wrapped box: \"Santa's helper in training.\"","A box, ribbon or string, paper","elf on the shelf wrapping presents tangled ribbon"],
+["👋🎄","Goodbye for now","Elf by the tree with a goodbye letter and a small treat each: \"See you next year! Be good.\"","Letter, two small treats","elf on the shelf goodbye letter christmas eve"]];
+const SPARES=[
+["😎🏖️","Sunbathing elf","Elf in sunglasses lying on a tea towel \"beach\" with a cold drink.","Tea towel, toy sunglasses or paper ones","elf on the shelf sunbathing"],
+["🙃🪟","Hanging around","Elf dangles upside down from the curtain rail by a hair tie.","Hair tie","elf on the shelf hanging upside down"],
+["🍌😊","Banana buddies","Faces drawn on bananas in the fruit bowl, elf leading them in a dance.","Bananas, marker","elf on the shelf banana faces"],
+["🧺👕","Laundry day","Elf peeking out of the washing basket wearing a doll's top.","Washing basket","elf on the shelf laundry basket"],
+["⛺🔦","Camping trip","A napkin tent over two pencils, elf inside with a small torch.","Napkin, pencils, a torch","elf on the shelf camping napkin tent"],
+["🎹🎶","Concert","Elf at a toy keyboard or a drawn paper piano, soft toys as the audience.","Toy keyboard or paper","elf on the shelf piano concert"],
+["🍱🤫","Lunchbox stowaway","Elf hiding inside a lunchbox with a note: \"Take me to school?\" (then it stays home).","A lunchbox, note","elf on the shelf lunch box"],
+["🧑‍🎨🖍️","Elf art class","Elf has drawn a wonky portrait of each girl on paper, crayons scattered.","Paper, crayons","elf on the shelf drawing portraits"]];
+
+const KEY="elf2026";let st={done:{},swap:{}};
+try{st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const idea=n=>st.swap[n]!=null?SPARES[st.swap[n]]:NIGHTS[n-1];
+const photos=q=>"https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
+
+// Tonight's setup is for tomorrow morning (Singapore time)
+const sg=new Date(Date.now()+8*3600e3);const y=sg.getUTCFullYear(),m=sg.getUTCMonth(),d=sg.getUTCDate();
+let target=null,label="";
+if(m===10&&d===30){target=1;label="Tonight (30 Nov), for the morning of 1 December"}
+else if(m===11&&d<24){target=d+1;label="Tonight ("+d+" Dec), for the morning of "+(d+1)+" December"}
+else if(m===11&&d===24){target=24;label="Christmas Eve: the elf says goodbye"}
+const todayIdx=m===11?Math.min(d,24):null;
+
+function hero(){
+  const h=document.getElementById("hero");
+  if(!target){h.innerHTML='<div class="when">'+(m===11?"Merry Christmas!":"Starts 30 November")+'</div><h2>'+(m===11?"The elf has gone home 🎄":"The elf flies in on 1 December")+'</h2><p class="swapnote">The first setup happens on the night of 30 November.</p>';return}
+  const [sc,t,how,need,q]=idea(target),done=!!st.done[target];
+  h.innerHTML='<div class="when">'+esc(label)+'</div><div class="scene" aria-hidden="true">'+sc+'</div><h2>'+esc(t)+'</h2><p style="margin:0">'+esc(how)+'</p><div class="need"><b>You need</b>'+esc(need)+'</div>'
+  +'<div class="btns"><button class="'+(done?"isdone":"primary")+'" data-tick="'+target+'">'+(done?"✓ Done":"Mark as done")+'</button>'
+  +'<a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">See photos</a>'
+  +'<button data-swap="'+target+'">Swap for a spare</button>'
+  +'<a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent("Elf done for "+target+" Dec ✅ "+t)+'">Tell the family</a></div>';
+}
+function door(n){
+  const [sc,t,how,need,q]=idea(n),done=!!st.done[n];
+  return '<article class="door'+(done?" done":"")+(n===target?" today":"")+'"><div class="d">'+n+' Dec<span aria-hidden="true">'+[...sc][0]+'</span></div><h4>'+esc(t)+'</h4><p>'+esc(how)+'</p><p><b>Need:</b> '+esc(need)+'</p>'
+  +'<div class="row" style="grid-column:2"><button class="'+(done?"isdone":"")+'" data-tick="'+n+'">'+(done?"✓ Done":"Tick")+'</button><a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">Photos</a><button data-swap="'+n+'">'+(st.swap[n]!=null?"Swapped ↺":"Swap")+'</button></div></article>';
+}
+function spare(s,i){
+  const [sc,t,how,need,q]=s;
+  return '<article class="door"><div class="d">Spare<span aria-hidden="true">'+[...sc][0]+'</span></div><h4>'+esc(t)+'</h4><p>'+esc(how)+'</p><p><b>Need:</b> '+esc(need)+'</p><div class="row" style="grid-column:2"><a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">Photos</a></div></article>';
+}
+function render(){hero();document.getElementById("grid").innerHTML=NIGHTS.map((_,i)=>door(i+1)).join("");document.getElementById("spares").innerHTML=SPARES.map(spare).join("")}
+
+let swapping=null;const P=document.getElementById("picker");
+function openPicker(n){swapping=n;
+  document.getElementById("opts").innerHTML=(st.swap[n]!=null?'<button class="opt" data-pick="orig">↺ Back to the original: '+esc(NIGHTS[n-1][1])+'</button>':"")+SPARES.map((s,i)=>'<button class="opt" data-pick="'+i+'">'+[...s[0]][0]+' '+esc(s[1])+'</button>').join("");
+  P.classList.add("open")}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.tick){const n=+b.dataset.tick;st.done[n]=!st.done[n];save();render()}
+  else if(b.dataset.swap){openPicker(+b.dataset.swap)}
+  else if(b.dataset.pick!=null){if(b.dataset.pick==="orig")delete st.swap[swapping];else st.swap[swapping]=+b.dataset.pick;save();P.classList.remove("open");render()}
+  else if(b.id==="closeP"){P.classList.remove("open")}
+});
+P.addEventListener("click",e=>{if(e.target===P)P.classList.remove("open")});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")P.classList.remove("open")});
+render();
+}
+</script>
+</body>
+</html>

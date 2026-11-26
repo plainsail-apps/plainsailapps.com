@@ -46,6 +46,12 @@ h3{color:#fff;font-size:22px;margin:36px 0 12px;font-weight:600}
 .tips{background:var(--card);border-radius:16px;padding:16px 20px}
 .tips li{margin:6px 0}
 .foot{color:#cfe6dc;font-size:13.5px;margin-top:28px}
+.who{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+.who button{min-height:40px;font-size:14px;padding:6px 14px;border:1.5px solid var(--c);color:var(--c)}
+.who button.me{background:var(--c);color:#fff}
+.whol{margin:12px 0 0;font-size:14px;color:var(--mute)}
+.sync{display:inline-block;background:#0003;color:#fff;border-radius:999px;padding:4px 12px;font-size:13.5px;margin:0 0 14px}
+.sync.ok{background:#1f8a5b}
 .swapnote{font-size:13px;color:var(--mute);margin:6px 0 0}
 #picker{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:9}
 #picker.open{display:flex}
@@ -59,6 +65,7 @@ h3{color:#fff;font-size:22px;margin:36px 0 12px;font-weight:600}
 <h1>Our Elf on the Shelf plan</h1>
 <p class="sub">One easy setup a night from 1 to 24 December, all with things already in the house. Set it up after bedtime, then tick it off. Not feeling it? Swap in a spare.</p>
 
+<p class="sync" id="sync" aria-live="polite">Connecting…</p>
 <section class="hero" id="hero" aria-live="polite"></section>
 
 <h3>All 24 nights</h3>
@@ -76,12 +83,12 @@ h3{color:#fff;font-size:22px;margin:36px 0 12px;font-weight:600}
 <li>Forgot to move it? The elf "was too tired from flying" and stays put one night.</li>
 </ul>
 
-<p class="foot">Ticks and swaps are saved on this phone. When you finish tonight's setup, tap "Tell the family" to send a WhatsApp so everyone knows it's done. Temporary page, removed after Christmas.</p>
+<p class="foot">Pick your name on the nights you'll do; ticks, names and swaps are shared live between everyone's phones. "Tell the family" sends a WhatsApp if you want to shout about it. Temporary page, removed after Christmas.</p>
 </main>
 
 <div id="picker" role="dialog" aria-modal="true" aria-label="Pick a spare"><div class="sheet"><h4 style="margin:0 0 6px;font-size:18px">Swap in a spare</h4><div id="opts"></div><button id="closeP" style="margin-top:8px">Cancel</button></div></div>
 
-<script>
+<script type="module">
 {
 const NIGHTS=[
 ["🎒✉️🍬","The elf arrives","Elf sits in a bowl of sweets with a hello note: \"I'm back from the North Pole! I'll be watching until Christmas.\"","A bowl, a few sweets, paper and pen","elf on the shelf arrival letter bowl of sweets"],
@@ -130,9 +137,14 @@ const SPARES=[
 ["🧽🍽️","Washing up","Elf in the dish rack with a sponge, \"helping\" with last night's plates.","Sponge, dish rack","elf on the shelf washing dishes sink"],
 ["⚽🥅","Football match","Elf scoring against a teddy goalkeeper, goal made from two shoes.","A small ball, two shoes, a teddy","elf on the shelf football soccer"]];
 
-const KEY="elf2026";let st={done:{},swap:{}};
+const KEY="elf2026";let st={done:{},swap:{},who:{}};
+const PEOPLE=[["Dan","#2563c9"],["Mamta","#b4318f"],["Rea","#c2700a"]];
+let fb=null;const syncEl=document.getElementById("sync");
 try{st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const put=n=>{save();if(fb)fb.setDoc(fb.doc(fb.db,"elf2026",String(n)),{who:st.who[n]||"",done:!!st.done[n],swap:st.swap[n]??null}).catch(()=>setSync(false))};
+const setSync=ok=>{syncEl.textContent=ok?"Live: everyone sees the same ticks and names.":"Not connected: changes are only saved on this phone for now.";syncEl.className=ok?"sync ok":"sync"};
+const whoBtns=n=>'<div class="who" role="group" aria-label="Who is doing '+n+' December">'+PEOPLE.map(([p,c])=>'<button style="--c:'+c+'" class="'+(st.who[n]===p?"me":"")+'" data-who="'+n+'|'+p+'">'+(st.who[n]===p?"✓ ":"")+p+'</button>').join("")+'</div>';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const idea=n=>st.swap[n]!=null?SPARES[st.swap[n]]:NIGHTS[n-1];
 const photos=q=>"https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
@@ -150,6 +162,7 @@ function hero(){
   if(!target){h.innerHTML='<div class="when">'+(m===11?"Merry Christmas!":"Starts 30 November")+'</div><h2>'+(m===11?"The elf has gone home 🎄":"The elf flies in on 1 December")+'</h2><p class="swapnote">The first setup happens on the night of 30 November.</p>';return}
   const [sc,t,how,need,q]=idea(target),done=!!st.done[target];
   h.innerHTML='<div class="when">'+esc(label)+'</div><div class="scene" aria-hidden="true">'+sc+'</div><h2>'+esc(t)+'</h2><p style="margin:0">'+esc(how)+'</p><div class="need"><b>You need</b>'+esc(need)+'</div>'
+  +'<p class="whol">Who\'s doing it?</p>'+whoBtns(target)
   +'<div class="btns"><button class="'+(done?"isdone":"primary")+'" data-tick="'+target+'">'+(done?"✓ Done":"Mark as done")+'</button>'
   +'<a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">See photos</a>'
   +'<button data-swap="'+target+'">Swap for a spare</button>'
@@ -158,7 +171,7 @@ function hero(){
 function door(n){
   const [sc,t,how,need,q]=idea(n),done=!!st.done[n];
   return '<article class="door'+(done?" done":"")+(n===target?" today":"")+'"><div class="d">'+n+' Dec<span aria-hidden="true">'+[...sc][0]+'</span></div><h4>'+esc(t)+'</h4><p>'+esc(how)+'</p><p><b>Need:</b> '+esc(need)+'</p>'
-  +'<div class="row" style="grid-column:2"><button class="'+(done?"isdone":"")+'" data-tick="'+n+'">'+(done?"✓ Done":"Tick")+'</button><a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">Photos</a><button data-swap="'+n+'">'+(st.swap[n]!=null?"Swapped ↺":"Swap")+'</button></div></article>';
+  +'<div style="grid-column:2">'+whoBtns(n)+'</div><div class="row" style="grid-column:2"><button class="'+(done?"isdone":"")+'" data-tick="'+n+'">'+(done?"✓ Done":"Tick")+'</button><a class="btn" href="'+photos(q)+'" target="_blank" rel="noopener">Photos</a><button data-swap="'+n+'">'+(st.swap[n]!=null?"Swapped ↺":"Swap")+'</button></div></article>';
 }
 function spare(s,i){
   const [sc,t,how,need,q]=s;
@@ -172,14 +185,26 @@ function openPicker(n){swapping=n;
   P.classList.add("open")}
 document.addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;
-  if(b.dataset.tick){const n=+b.dataset.tick;st.done[n]=!st.done[n];save();render()}
+  if(b.dataset.tick){const n=+b.dataset.tick;st.done[n]=!st.done[n];put(n);render()}
+  else if(b.dataset.who){const [n,p]=b.dataset.who.split("|");st.who[n]=st.who[n]===p?"":p;put(+n);render()}
   else if(b.dataset.swap){openPicker(+b.dataset.swap)}
-  else if(b.dataset.pick!=null){if(b.dataset.pick==="orig")delete st.swap[swapping];else st.swap[swapping]=+b.dataset.pick;save();P.classList.remove("open");render()}
+  else if(b.dataset.pick!=null){if(b.dataset.pick==="orig")delete st.swap[swapping];else st.swap[swapping]=+b.dataset.pick;put(swapping);P.classList.remove("open");render()}
   else if(b.id==="closeP"){P.classList.remove("open")}
 });
 P.addEventListener("click",e=>{if(e.target===P)P.classList.remove("open")});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")P.classList.remove("open")});
 render();
+(async()=>{try{
+  const V="https://www.gstatic.com/firebasejs/11.0.2/";
+  const {initializeApp}=await import(V+"firebase-app.js");
+  const F=await import(V+"firebase-firestore.js");
+  const app=initializeApp({apiKey:"AIzaSyDF656zRGaGzqcDdrA-5CR1n59TyZzQIAA",authDomain:"plainsail-elf.firebaseapp.com",projectId:"plainsail-elf",storageBucket:"plainsail-elf.firebasestorage.app",messagingSenderId:"426423231857",appId:"1:426423231857:web:ae46e8b2907b8c96ea02d0"});
+  const db=F.getFirestore(app);
+  F.onSnapshot(F.collection(db,"elf2026"),snap=>{
+    fb={db,doc:F.doc,setDoc:F.setDoc};const s={done:{},swap:{},who:{}};
+    snap.forEach(d=>{const n=+d.id,v=d.data();if(v.done)s.done[n]=true;if(v.who)s.who[n]=v.who;if(Number.isInteger(v.swap))s.swap[n]=v.swap});
+    st=s;save();setSync(true);render()},()=>setSync(false));
+}catch(e){setSync(false)}})();
 }
 </script>
 </body>

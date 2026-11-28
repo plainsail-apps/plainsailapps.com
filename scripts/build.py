@@ -134,7 +134,7 @@ APPS = [
 <h2>Progress</h2>
 <p>Each device keeps its own progress, so two children with their own iPads each have their own animals and stars.</p>'''),
   dict(slug="aigovernanceprep", who_title="For anyone sitting the AIGP exam.", name="AI Governance Prep", subtitle="AIGP exam practice questions",
-       platforms="iPhone", ios_only=True,
+       platforms="iPhone", ios_only=True, app_store_url="https://apps.apple.com/app/id6835309686",
        accent="#0957EC", soft="#E3ECFD", icon=None, icon_svg="shield",
        short="500 original, scenario-based questions mapped to the current AIGP Body of Knowledge, with an explanation for every right and wrong answer. Practise by domain or sit full mock exams.",
        chips=["Works offline", "30 free questions", "Five mock exams"],
@@ -348,7 +348,7 @@ def index():
         <div class="app-id">{icon(a)}<div><strong>{a['name']}</strong><span>{html.escape(a['subtitle'])}</span></div></div>
         <p>{html.escape(a['short'])}</p>
         <div class="chips">{chips}</div>
-        <div class="status">{html.escape(a.get("status", "Coming soon to the App Store" if a.get("ios_only") else "Coming soon to the App Store and Google Play"))}</div>
+        <div class="status">{html.escape(a.get("status", "On the App Store" if a.get("app_store_url") else "Coming soon to the App Store" if a.get("ios_only") else "Coming soon to the App Store and Google Play"))}</div>
         <div class="more">Explore {a['name']} →</div>
       </div>
       <div class="card-art" aria-hidden="true">{phone(a, 0)}</div>
@@ -392,6 +392,10 @@ def index():
 """ + foot()
 
 def stores(a):
+    if a.get("app_store_url"):
+        out = f'<a class="store" href="{html.escape(a["app_store_url"])}"><small>Download on the</small>App Store</a>'
+        if not a.get("ios_only"): out += '<span class="store"><small>Coming soon to</small>Google Play</span>'
+        return out
     st = a.get("store_label", "Coming soon to")
     out = f'<span class="store"><small>{st} the</small>App Store</span>'
     if not a.get("ios_only"): out += f'<span class="store"><small>{st}</small>Google Play</span>'
@@ -463,8 +467,8 @@ def app_page(a):
   </div></section>
 
   <section class="cta"><div class="wrap">
-    <h2>{html.escape(a.get('cta', a['name'] + (' is coming soon to the App Store.' if a.get('ios_only') else ' is coming soon to the App Store and Google Play.')))}</h2>
-    <a class="btn ghost" href="mailto:{EMAIL}?subject={a['name'].replace(' ', '%20')}">Ask us a question</a>
+    <h2>{html.escape(a.get('cta', a['name'] + (' is on the App Store.' if a.get('app_store_url') else ' is coming soon to the App Store.' if a.get('ios_only') else ' is coming soon to the App Store and Google Play.')))}</h2>
+    {f'<a class="btn" href="{html.escape(a["app_store_url"])}">Download on the App Store</a>' if a.get('app_store_url') else ''}<a class="btn ghost" href="mailto:{EMAIL}?subject={a['name'].replace(' ', '%20')}">Ask us a question</a>
   </div></section>
 </main>
 """ + foot(f'<a href="/">All apps</a><a href="/{s}/support">{a["name"]} support</a>' + (f'<a href="/{s}/privacy">{a["name"]} privacy</a>' if a.get("privacy_ready", True) else ""))
